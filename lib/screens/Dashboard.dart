@@ -30,8 +30,9 @@ class DashboardState extends State<Dashboard> {
   }
 }
 
-class ClassCard extends StatelessWidget {
 
+
+class ClassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(

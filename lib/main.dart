@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_helper/screens/ClassCreate.dart';
+import 'package:tutor_helper/screens/ClassesList.dart';
 import 'package:tutor_helper/screens/Dashboard.dart';
+import 'package:tutor_helper/screens/Class.dart';
+//import 'package:tutor_helper/screens/ForTests.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,8 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'TutorHelper',
       theme: ThemeData(
-
-        primarySwatch: Colors.blue,
+//        backgroundColor: Color(0xFF383c5d),
+          scaffoldBackgroundColor: Color(0xFF383c5d),
+//        primaryColorDark: Colors.blue,
+//        primarySwatch: Color(0xFF5dcb9a),
+          primaryColor: Color(0xFF393c5e),
+//      primaryColor: Color(0xFF5dcb9a),
       ),
       home: MyHomePage(),
     );
@@ -82,7 +90,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Dashboard()
+      body: ClassesList()
+
+//          Column(
+//            children: <Widget>[
+
+//            ],
+//          )
+
+
+
 
     );
   }
