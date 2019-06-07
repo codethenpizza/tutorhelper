@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Class.dart';
+import 'package:tutor_helper/widgets/Card.dart';
 
 class ClassesList extends StatefulWidget{
 
