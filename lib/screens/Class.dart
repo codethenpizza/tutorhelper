@@ -43,7 +43,7 @@ class ClassTopPart extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text('Arthur\nMarkovich',style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold, color: Colors.white), ),
-                  Text('20.09.19 — Math', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                  Text('20.09.19 — Математика', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
                 ],
               ),
             ),
@@ -63,71 +63,23 @@ class ClassTopPart extends StatelessWidget {
                     )
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 30.0, left: 20, right: 20, bottom: 40),
+                  padding: const EdgeInsets.only(top: 30.0, left: 20, right: 20, bottom: 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                        Column( //contacts
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Контакты', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600,color: Colors.white),),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('Ученик', style: TextStyle(fontSize: 20,color: Colors.white),),
-                                      Text('8 (999) 999 99 99', style: TextStyle(color: Colors.white),),
-                                    ],
-                                  ),
-                                  Icon(Icons.phone,color: Colors.white,size: 30,)
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('Ольга Васильевна', style: TextStyle(fontSize: 20,color: Colors.white),),
-                                      Text('8 (999) 999 99 99', style: TextStyle(color: Colors.white),),
-                                    ],
-                                  ),
-                                  Icon(Icons.phone,color: Colors.white,size: 30,)
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('Николай Генадьевич', style: TextStyle(fontSize: 20,color: Colors.white),),
-                                      Text('8 (999) 999 99 99', style: TextStyle(color: Colors.white),),
-                                    ],
-                                  ),
-                                  Icon(Icons.phone,color: Colors.white,size: 30,)
-                                ],
-                              ),
-                            ),
-
-                          ],
-                        ),
                         Column( //homework
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text('60 Минут', style: TextStyle(color: Colors.white, fontSize: 15),),
+                                Text('1000Р', style: TextStyle(color: Colors.white, fontSize: 15),),
+                              ],
+                            ),
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0, bottom: 13),
-                              child: Text('Домашнее задание', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600,color: Colors.white),),
+                              child: Text('Домашнее задание', style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600,color: Colors.white),),
                             ),
                             Container(
 //                              color: Colors.blue,
@@ -146,7 +98,7 @@ class ClassTopPart extends StatelessWidget {
                                         child: Container(height: 15,width: 15, color: Colors.blue,),),
                                       Padding(
                                         padding: const EdgeInsets.only(left: 3.0),
-                                        child: Text('Math', style: TextStyle(color: Colors.white, fontSize: 20),),
+                                        child: Text('Математика', style: TextStyle(color: Colors.white, fontSize: 20),),
                                       ),
                                     ],
                                     ),
@@ -156,6 +108,112 @@ class ClassTopPart extends StatelessWidget {
                                         'Pellentesque habitant morbi tristique senectus et netus et '
                                         'malesuada fames ac turpis egestas.',  style: TextStyle(color: Colors.white,fontSize: 15),)                                ],
                                 ),
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding( //after class
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 13),
+                                    child: Text('После урока', style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600,color: Colors.white),),
+                                  ),
+                                  Row( //after class icons
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: <Widget>[
+                                      Container(
+                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),
+                                      color: Color(0xFF3f4674),
+                                      ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Icon(Icons.directions_walk, color: Colors.white,size: 40,),
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),
+                                          color: Color(0xFF3f4674),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Icon(Icons.work, color: Colors.white,size: 40,),
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(50),
+                                          color: Color(0xFF3f4674),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Icon(Icons.payment, color: Colors.white,size: 40,),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                            ),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Padding( //after class
+                                    padding: const EdgeInsets.only(top: 15.0, bottom: 13),
+                                    child: Text('Добавить новый', style: TextStyle(fontSize: 23, fontWeight: FontWeight.w600,color: Colors.white),),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      TextFormField(
+                                        style: new TextStyle(color: Colors.white),
+                                        decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                                            labelText: 'Date',
+                                            labelStyle: TextStyle(color: Colors.white),
+                                          border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        style: new TextStyle(color: Colors.white),
+                                        decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                                            labelText: 'Class',
+                                            labelStyle: TextStyle(color: Colors.white),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                                        ),
+                                      ),
+                                      TextFormField(
+
+                                        style: TextStyle(color: Colors.white,),
+                                        decoration: InputDecoration(
+                                          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+                                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
+                                            labelText: 'Homework',
+                                            labelStyle: TextStyle(color: Colors.white),
+                                            border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: RaisedButton(
+                                          color: Color(0xFF3f4674),
+                                          onPressed: () {},
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 8.0, right: 8),
+                                            child: const Text(
+                                                'Готово',
+                                                style: TextStyle(fontSize: 20, color: Colors.white)
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
                             )
                           ],
