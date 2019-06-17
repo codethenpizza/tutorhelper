@@ -1,38 +1,53 @@
 import 'package:flutter/material.dart';
 
-import 'package:tutor_helper/widgets/Card.dart';
+import 'package:tutor_helper/main.dart';
+import 'package:tutor_helper/widgets/ClassWidget.dart';
+import 'package:tutor_helper/models/StLessonModel.dart';
 
-class ClassesList extends StatefulWidget{
+import 'ClassCreate.dart';
+import 'StudentCreate.dart';
 
+class ClassesList extends StatefulWidget {
   @override
   State createState() => ClassesListState();
-
 }
 
-class ClassesListState extends State<ClassesList>{
+class ClassesListState extends State<ClassesList> {
+  final Future future = StLessonModel().all();
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Row(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text("ПН 29.02.19", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30),),
-          ),
+    return Scaffold(
+        body: FutureBuilder(
+            future: future,
+            builder: (BuildContext context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.length == 0)
+                  return Center(
+                    child: Text('Занятия отсутствуют'),
+                  );
 
-        ],
-    ),
-
-        Class(),
-        Class(),
-        Class(),
-        Class(),
-        Class(),
-        Class(),
-        Class(),
-      ],
+                return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    StLessonModel item = snapshot.data[index];
+                    return ClassWidget(item);
+                  },
+                );
+              } else {
+                return Center(
+                  child: Text('Загрузка'),
+                );
+              }
+            }
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ClassCreate()));
+          },
+          child: Icon(Icons.add),
+        ),
     );
   }
 }
