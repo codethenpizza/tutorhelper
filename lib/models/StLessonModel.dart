@@ -3,10 +3,12 @@
 //     final stLessonModel = stLessonModelFromJson(jsonString);
 
 import 'dart:convert';
-import 'package:tutor_helper/models/StudentModel.dart';
+import 'package:tutor_helper/database/DBProvider.dart';
+
 import 'Model.dart';
 
-StLessonModel stLessonModelFromJson(String str) => StLessonModel().fromMap(json.decode(str));
+StLessonModel stLessonModelFromJson(String str) =>
+    StLessonModel().fromMap(json.decode(str));
 
 String stLessonModelToJson(StLessonModel data) => json.encode(data.toMap());
 
@@ -17,7 +19,7 @@ class StLessonModel extends Model {
   int studentId;
   int lessonId;
   String date;
-  String duration;
+  int duration;
   int totalCost;
 
   StLessonModel({
@@ -30,24 +32,35 @@ class StLessonModel extends Model {
   });
 
   fromMap(Map<String, dynamic> json) => new StLessonModel(
-    id: json["id"],
-    studentId: json["student_id"],
-    lessonId: json["lesson_id"],
-    date: json["date"],
-    duration: json["duration"],
-    totalCost: json["total_cost"],
-  );
+        id: json["id"],
+        studentId: json["student_id"],
+        lessonId: json["lesson_id"],
+        date: json["date"],
+        duration: json["duration"],
+        totalCost: json["total_cost"],
+      );
 
   Map<String, dynamic> toMap() => {
-    "id": id,
-    "student_id": studentId,
-    "lesson_id": lessonId,
-    "date": date,
-    "duration": duration,
-    "total_cost": totalCost,
-  };
+        "id": id,
+        "student_id": studentId,
+        "lesson_id": lessonId,
+        "date": date,
+        "duration": duration,
+        "total_cost": totalCost,
+      };
 
-  StudentModel getStudent() {
-    return StudentModel().find(this.studentId);
+  Future allComing() async {
+    final db = await DBProvider.db.database;
+
+    var res = await db.query(
+        this.tableName,
+        orderBy: "date",
+        where: "date > ?",
+        whereArgs: [DateTime.now().toIso8601String()],
+    );
+    List<dynamic> list =
+    res.isNotEmpty ? res.map((c) => this.fromMap(c)).toList() : [];
+    return list;
   }
+
 }

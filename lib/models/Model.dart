@@ -1,6 +1,6 @@
 import 'package:tutor_helper/database/DBProvider.dart';
 
-abstract class Model {
+abstract class Model<T> {
   final String tableName = "";
 
   Map<String, dynamic> toMap();
@@ -13,7 +13,7 @@ abstract class Model {
     var res = db.insert(this.tableName, this.toMap());
   }
 
-  Future<List<dynamic>> all() async {
+  Future<List<T>> all() async {
     final db = await DBProvider.db.database;
 
     var res = await db.query(this.tableName, orderBy: "id DESC");
@@ -23,7 +23,7 @@ abstract class Model {
     return list;
   }
 
-  find(int id) async {
+  Future<T> find(int id) async {
     final db = await DBProvider.db.database;
 
     var res = await db.query(this.tableName, where: "id = ?", whereArgs: [id]);

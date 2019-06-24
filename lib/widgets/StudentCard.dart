@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_helper/models/LessonModel.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 
 class StudentCard extends StatelessWidget {
-
   final StudentModel student;
-  final String className;
+  final int lessonId;
 
-
-  StudentCard(this.student, {this.className});
+  StudentCard(this.student, {this.lessonId});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,13 @@ class StudentCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(student.name, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+              Text(
+                student.name,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
 //              Text('16 лет', style: TextStyle(color: Colors.white),)
             ],
           ),
@@ -34,24 +39,48 @@ class StudentCard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                className != null ?
+                lessonId != null
+                    ? FutureBuilder(
+                        future: LessonModel().find(lessonId),
+                        builder:
+                            (context, AsyncSnapshot snapshot) {
+                          if (snapshot.hasData) {
+                            return Row(
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child: Container(
+                                    height: 15,
+                                    width: 15,
+                                    color: Color(snapshot.data.color),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Text(
+                                    snapshot.data.name,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Text('Загрузка');
+                          }
+                        },
+                      )
+                    : Container(),
                 Row(
                   children: <Widget>[
-                    ClipRRect(borderRadius: BorderRadius.circular(50),
-                      child: Container(height: 15,width: 15, color: Color(0xFF5dcb9a),),),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(className, style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
-                    ),
-                  ],
-                )
-                    :Container(),
-
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Icon(Icons.phone, color: Colors.white,),
+                      child: Icon(
+                        Icons.phone,
+                        color: Colors.white,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),

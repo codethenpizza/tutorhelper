@@ -12,9 +12,10 @@ class ClassCreate extends StatefulWidget {
 class ClassCreateState extends State<ClassCreate> {
   int studentId;
   int lessonId;
+  int duration;
+  int totalCost;
 
   DateTime selectedDate = DateTime.now();
-  TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
@@ -23,10 +24,8 @@ class ClassCreateState extends State<ClassCreate> {
         firstDate: DateTime(2015, 8),
         lastDate: DateTime(2101));
 
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
+    if (picked != null) {
+      selectedDate = picked;
       _selectTime(context);
     }
   }
@@ -34,12 +33,11 @@ class ClassCreateState extends State<ClassCreate> {
   Future<Null> _selectTime(BuildContext context) async {
     final TimeOfDay picked = await showTimePicker(
         context: context,
-        initialTime: selectedTime,);
+        initialTime: TimeOfDay.now(),);
 
-    if (picked != null && picked != selectedTime)
+    if (picked != null)
       setState(() {
-        selectedTime = picked;
-        selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, selectedTime.hour, selectedTime.minute);
+        selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, picked.hour, picked.minute);
       });
   }
 
@@ -111,7 +109,7 @@ class ClassCreateState extends State<ClassCreate> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(DateFormat('dd-MM-yyyy H:m').format(selectedDate)),
+                  Text(DateFormat('dd-MM-yyyy HH:mm').format(selectedDate)),
                   RaisedButton(
                     onPressed: () => _selectDate(context),
                     child: Text('Выбрать дату'),
@@ -123,12 +121,18 @@ class ClassCreateState extends State<ClassCreate> {
                 decoration: InputDecoration(
                   labelText: 'Длительность в минутах'
                 ),
+                onChanged: (str) {
+                  duration = int.parse(str);
+                },
               ),
               TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     labelText: 'Конечная стоимость',
                 ),
+                onChanged: (str) {
+                  totalCost = int.parse(str);
+                },
               ),
               RaisedButton(
                 onPressed: () => createClass(context),
@@ -140,7 +144,13 @@ class ClassCreateState extends State<ClassCreate> {
       );
 
   createClass(BuildContext context) async {
-    StLessonModel stLesson = new StLessonModel();
+    StLessonModel stLesson = new StLessonModel(
+      studentId: studentId,
+      lessonId: lessonId,
+      date: selectedDate.toIso8601String(),
+      duration: duration,
+      totalCost: totalCost
+    );
     await stLesson.save();
 //    Scaffold.of(context).showSnackBar(SnackBar(content: Text('Студент создан!'),duration: Duration(seconds: 1),));
     Navigator.pop(context);

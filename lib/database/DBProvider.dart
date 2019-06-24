@@ -21,7 +21,7 @@ class DBProvider {
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, 'TutorHelper.db');
-    return await openDatabase(path, version: 2,
+    return await openDatabase(path, version: 4,
         onCreate: (Database db, int version) async {
           await db.execute("CREATE TABLE Students ("
               "id INTEGER PRIMARY KEY, "
@@ -50,20 +50,21 @@ class DBProvider {
               "id INTEGER PRIMARY KEY, "
               "student_id INTEGER, "
               "lesson_id INTEGER, "
-              "date TEXT, "
-              "duration TEXT, "
+              "date INTEGER, "
+              "duration INTEGER, "
               "total_cost INTEGER"
               ")");
         }, onUpgrade: (Database db, int oldVersion, int newVersion) async {
           print(['onUpgrade', oldVersion, newVersion]);
-          await db.execute("DROP TABLE Lessons");
+          await db.execute("DROP TABLE S_Lessons");
 
-          await db.execute("CREATE TABLE Lessons ("
+          await db.execute("CREATE TABLE S_Lessons ("
               "id INTEGER PRIMARY KEY, "
-              "name TEXT, "
-              "desc TEXT, "
-              "cost INTEGER, "
-              "color INTEGER"
+              "student_id INTEGER, "
+              "lesson_id INTEGER, "
+              "date TEXT, "
+              "duration INTEGER, "
+              "total_cost INTEGER"
               ")");
         },
         onOpen: (Database db) async {
