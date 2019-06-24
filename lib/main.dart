@@ -8,6 +8,8 @@ import 'package:tutor_helper/widgets/StudentCard.dart';
 //import 'package:tutor_helper/screens/ForTests.dart';
 import 'package:tutor_helper/screens/UserLessonCreate.dart';
 
+import 'package:tutor_helper/config/themeConfig.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -44,6 +46,7 @@ class MyHomePage extends StatefulWidget {
     DrawerItem('Расписание', Icons.access_time, ClassesList()),
     DrawerItem('Архив', Icons.archive, ClassesList()),
     DrawerItem('Статистика', Icons.equalizer, ClassesList()),
+    DrawerItem('Тест (Class)', Icons.accessible_forward, ClassP()),
   ];
 
   @override
@@ -115,82 +118,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),
-    );
-  }
-}
-
-class MainWrap extends StatelessWidget{
-
-  final Widget child;
-  final Widget floatingActionButton;
-
-  MainWrap({this.child, this.floatingActionButton});
-
-  @override
-  Widget build(BuildContext context) {
-    print(child.runtimeType.toString());
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('TutorHelper'),
-        ),
-        drawer: Drawer(
-          child: Column(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                decoration: BoxDecoration(
-                    color: Colors.blue
-                ),
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text('Главная'),
-                selected: true,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.people),
-                title: Text('Ученики'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudentsList()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.access_time),
-                title: Text('Расписание'),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ClassesList()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.archive),
-                title: Text('Архив'),
-              ),
-              ListTile(
-                leading: Icon(Icons.equalizer),
-                title: Text('Статистика'),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.settings),
-                      title: Text('Настройки'),
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.feedback),
-                      title: Text('Обратная связь'),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-        body: child,
-        floatingActionButton: floatingActionButton,
     );
   }
 }

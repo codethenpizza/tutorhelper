@@ -15,6 +15,7 @@ class ClassCreateState extends State<ClassCreate> {
   int duration;
   int totalCost;
 
+  //start
   DateTime selectedDate = DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -40,7 +41,7 @@ class ClassCreateState extends State<ClassCreate> {
         selectedDate = new DateTime(selectedDate.year, selectedDate.month, selectedDate.day, picked.hour, picked.minute);
       });
   }
-
+  //end
 
   @override
   Widget build(BuildContext context) => Scaffold(
