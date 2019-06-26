@@ -20,10 +20,10 @@ class MyApp extends StatelessWidget {
       title: 'TutorHelper',
       theme: ThemeData(
 //        backgroundColor: Color(0xFF383c5d),
-          scaffoldBackgroundColor: Color(0xFF383c5d),
+          scaffoldBackgroundColor: DarkTheme.main,
 //        primaryColorDark: Colors.blue,
 //        primarySwatch: Color(0xFF5dcb9a),
-          primaryColor: Color(0xFF393c5e),
+          primaryColor: DarkTheme.prm,
 //      primaryColor: Color(0xFF5dcb9a),
       ),
       home: MyHomePage(),
@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                  color: Colors.blue
+                  color: DarkTheme.acc
               ),
             ),
             Column(children: drawerOptions),

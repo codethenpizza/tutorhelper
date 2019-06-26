@@ -9,6 +9,8 @@ import 'dart:math' as math;
 import 'ClassCreate.dart';
 import 'StudentCreate.dart';
 
+import 'package:tutor_helper/config/themeConfig.dart';
+
 class ClassesList extends StatefulWidget {
   @override
   State createState() => ClassesListState();
@@ -24,7 +26,7 @@ class ClassesListState extends State<ClassesList> {
             if (snapshot.hasData) {
               if (snapshot.data.length == 0)
                 return Center(
-                  child: Text('Занятия отсутствуют'),
+                  child: Text('Занятия отсутствуют', style: TextStyle(color: DarkTheme.txt, fontSize: 20),),
                 );
 
 //              return ListView.builder(
@@ -97,7 +99,7 @@ class ClassesListState extends State<ClassesList> {
                           child: Container(
                             margin: EdgeInsets.only(bottom: 10),
                               decoration: BoxDecoration(
-                                color: Color(0xFF383c51),
+                                color: DarkTheme.prm,
                                 boxShadow: [
                                   BoxShadow(color: Color(0x55000000), blurRadius: 4)
                                 ],
@@ -106,7 +108,7 @@ class ClassesListState extends State<ClassesList> {
                           Text(_getDateString(maxDate), style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 30,
-                            color: Colors.white
+                            color: DarkTheme.txt
                           ),))
                           ),
                         ),

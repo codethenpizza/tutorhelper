@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 
 //DARK THEME COLORS
 
@@ -20,3 +22,16 @@ const txtC = 0xFFFFFFFF;
 
 
 //classes
+
+
+class DarkTheme{
+
+  static const main = Color(0xFF383d5d);
+  static const prm = Color(0xFF404674);
+  static const acc = Color(0xFF2296f3);
+  //text
+  static const txt = Color(0xFFFFFFFF);
+  //button
+  static const btn = Color(0xFF3f4674);
+
+}

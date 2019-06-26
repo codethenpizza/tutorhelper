@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 
+import 'package:tutor_helper/config/themeConfig.dart';
+
 class StudentCreate extends StatelessWidget {
   String name;
   String phone;
@@ -17,33 +19,89 @@ class StudentCreate extends StatelessWidget {
       child: Column(
         children: <Widget>[
           TextField(
+            style: new TextStyle(
+                color: DarkTheme.txt),
             decoration: InputDecoration(
-              labelText: 'Имя'
+                enabledBorder:
+                UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: DarkTheme.txt)),
+                focusedBorder:
+                UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                        DarkTheme.acc)),
+              labelText: 'Имя',
+              labelStyle: TextStyle(color: DarkTheme.txt),
+          border: UnderlineInputBorder(
+              borderSide: BorderSide(
+                  color: DarkTheme.txt))
             ),
             onChanged: (str) {
               name = str;
             },
           ),
           TextField(
+            style: new TextStyle(
+                color: DarkTheme.txt),
             decoration: InputDecoration(
-                labelText: 'Телефон'
+                enabledBorder:
+                UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: DarkTheme.txt)),
+                focusedBorder:
+                UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                        DarkTheme.acc)),
+                labelText: 'Телефон',
+                labelStyle: TextStyle(color: DarkTheme.txt),
+              border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                      color: DarkTheme.txt))
             ),
             onChanged: (str) {
               phone = str;
             },
           ),
           TextField(
+            style: new TextStyle(
+                color: DarkTheme.txt),
             decoration: InputDecoration(
-                labelText: 'Почта'
+                enabledBorder:
+                UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: DarkTheme.txt)),
+                focusedBorder:
+                UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color:
+                        DarkTheme.acc)),
+                labelText: 'Почта',
+                labelStyle: TextStyle(color: DarkTheme.txt),
+                border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                        color: DarkTheme.txt))
             ),
             onChanged: (str) {
               email = str;
             },
           ),
-          RaisedButton(
-            onPressed: () => createStudent(context),
-            child: Text('Создать'),
-          )
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: RaisedButton(
+              color: DarkTheme.btn,
+              onPressed: () {},
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 8.0, right: 8),
+                child: const Text('Создать',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: DarkTheme.txt)),
+              ),
+            ),
+          ),
         ],
       ),
     ),
