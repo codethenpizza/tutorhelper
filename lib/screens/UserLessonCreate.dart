@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tutor_helper/models/LessonModel.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+//theme
+import 'package:tutor_helper/config/themeConfig.dart';
 
 class UserLessonCreate extends StatefulWidget {
 
@@ -42,7 +44,20 @@ class UserLessonCreateState extends State<UserLessonCreate> {
               ),
               TextField(
                 decoration: InputDecoration(
-                    labelText: 'Название'
+                  enabledBorder:
+                  UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: DarkTheme.txt)),
+                  focusedBorder:
+                  UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color:
+                          DarkTheme.acc)),
+                  labelText: 'Название',
+                  labelStyle: TextStyle(color: DarkTheme.txt),
+                    border: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: DarkTheme.txt)),
                 ),
                 onChanged: (str) {
                   name = str;
@@ -50,7 +65,20 @@ class UserLessonCreateState extends State<UserLessonCreate> {
               ),
               TextField(
                 decoration: InputDecoration(
-                    labelText: 'Описание',
+                  enabledBorder:
+                  UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: DarkTheme.txt)),
+                  focusedBorder:
+                  UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color:
+                          DarkTheme.acc)),
+                  labelText: 'Описание',
+                  labelStyle: TextStyle(color: DarkTheme.txt),
+                  border: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: DarkTheme.txt)),
                 ),
                 minLines: 2,
                 maxLines: 5,
@@ -60,17 +88,41 @@ class UserLessonCreateState extends State<UserLessonCreate> {
               ),
               TextField(
                 decoration: InputDecoration(
-                    labelText: 'Цена'
+                    enabledBorder:
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: DarkTheme.txt)),
+                    focusedBorder:
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                            DarkTheme.acc)),
+                  labelText: 'Цена',
+                  labelStyle: TextStyle(color: DarkTheme.txt),
+                  border: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: DarkTheme.txt)),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (str) {
                   cost = int.parse(str);
                 },
               ),
-              RaisedButton(
-                onPressed: () => createLesson(context),
-                child: Text('Создать'),
-              )
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: RaisedButton(
+                  color: DarkTheme.btn,
+                  onPressed: () => createLesson(context),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8),
+                    child: const Text('Создать',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: DarkTheme.txt)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
