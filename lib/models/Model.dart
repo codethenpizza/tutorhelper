@@ -9,7 +9,7 @@ abstract class Model<T> {
 
   save() async {
     final db = await DBProvider.db.database;
-//    print(this.toMap());
+    print(this.toMap());
     var res = db.insert(this.tableName, this.toMap());
   }
 

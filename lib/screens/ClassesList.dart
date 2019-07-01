@@ -133,7 +133,7 @@ class ClassesListState extends State<ClassesList> {
             }
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
+        onPressed: () {
 //            print(await StLessonModel().getAllLessons());
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => ClassCreate()));

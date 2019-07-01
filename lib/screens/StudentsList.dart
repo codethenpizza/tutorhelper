@@ -11,37 +11,41 @@ class StudentsList extends StatefulWidget {
 }
 
 class StudentsListState extends  State<StudentsList>{
-  final Future future = StudentModel().all();
+  Future future = StudentModel().all();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: FutureBuilder(
-          future: future,
-          builder: (BuildContext context, snapshot) {
-            if(snapshot.hasData){
-              return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    StudentModel item = snapshot.data[index];
-                    return StudentCard(item);
-                  },
-              );
-            }else{
-              return Center(
-                child: Text('Ученики отсутствуют'),
-              );
-            }
-          },
-        ),
+      body: FutureBuilder(
+        future: future,
+        builder: (BuildContext context, snapshot) {
+          if(snapshot.hasData){
+            return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  StudentModel item = snapshot.data[index];
+                  return Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: StudentCard(item),
+                  );
+                },
+            );
+          }else{
+            return Center(
+              child: Text('Ученики отсутствуют'),
+            );
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
 //          StudentModel().all();
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => StudentCreate()));
+              MaterialPageRoute(builder: (context) => StudentCreate())).then((val){
+                setState(() {
+                  future = StudentModel().all();
+                });
+          });
         },
         child: Icon(Icons.person_add),
       ),
