@@ -5,6 +5,8 @@ import 'StudentCard.dart';
 import 'package:tutor_helper/models/StLessonModel.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 
+import 'package:tutor_helper/config/themeConfig.dart';
+
 class ClassWidget extends StatelessWidget {
   final StLessonModel sLesson;
 
@@ -25,7 +27,7 @@ class ClassWidget extends StatelessWidget {
                 child: Text(
                   sLesson.totalCost.toString() + 'P',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: DarkTheme.txt,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
@@ -36,7 +38,7 @@ class ClassWidget extends StatelessWidget {
                   DateFormat('HH:mm').format(DateTime.parse(sLesson.date)),
 //                  sLesson.date,
                   style: TextStyle(
-                      color: Colors.white,
+                      color: DarkTheme.txt,
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),

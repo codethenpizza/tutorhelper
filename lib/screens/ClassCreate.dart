@@ -66,6 +66,8 @@ class ClassCreateState extends State<ClassCreate> {
                             ))
                         .toList();
                     return DropdownButton(
+
+//                      style: TextStyle(color: Colors.white),
                       isExpanded: true,
                       onChanged: (val) {
                         setState(() {
@@ -75,10 +77,10 @@ class ClassCreateState extends State<ClassCreate> {
                       },
                       items: list,
                       value: studentId,
-                      hint: Text('--Ученик--'),
+                      hint: Text('Ученик', style: TextStyle(color: DarkTheme.txt),),
                     );
                   }else{
-                    return Text('Загрузка');
+                    return Text('Загрузка', style: TextStyle(color: DarkTheme.txt),);
                   }
                 },
               ),
@@ -102,45 +104,98 @@ class ClassCreateState extends State<ClassCreate> {
                       },
                       items: list,
                       value: lessonId,
-                      hint: Text('--Урок--'),
+                      hint: Text('Урок', style: TextStyle(color: DarkTheme.txt)),
                     );
                   }else{
-                    return Text('Загрузка');
+                    return Text('Загрузка', style: TextStyle(color: DarkTheme.txt));
                   }
                 },
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(DateFormat('dd-MM-yyyy HH:mm').format(selectedDate)),
+                  Text(DateFormat('dd-MM-yyyy HH:mm').format(selectedDate), style: TextStyle(color: DarkTheme.txt),),
+//                  RaisedButton(
+//                    onPressed: () => _selectDate(context),
+//                    child: Text('Выбрать дату'),
+//                  ),
                   RaisedButton(
+                    color: DarkTheme.btn,
                     onPressed: () => _selectDate(context),
-                    child: Text('Выбрать дату'),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 8),
+                      child: Text('Выбрать дату',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: DarkTheme.txt)),
+                    ),
                   ),
                 ],
               ),
               TextField(
+                style: TextStyle(color: DarkTheme.txt),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Длительность в минутах'
+                    enabledBorder:
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: DarkTheme.txt)),
+                    focusedBorder:
+                    UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color:
+                            DarkTheme.acc)),
+                  labelText: 'Длительность в минутах',
+                    labelStyle: TextStyle(
+                        color: DarkTheme.txt),
+                    border: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: DarkTheme.txt)),
                 ),
                 onChanged: (str) {
                   duration = int.parse(str);
                 },
               ),
               TextField(
+                style: TextStyle(color: DarkTheme.txt),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
+                  enabledBorder:
+                  UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: DarkTheme.txt)),
+                  focusedBorder:
+                  UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color:
+                          DarkTheme.acc)),
                     labelText: 'Конечная стоимость',
+                  labelStyle: TextStyle(
+                      color: DarkTheme.txt),
+                  border: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: DarkTheme.txt)),
                 ),
                 onChanged: (str) {
                   totalCost = int.parse(str);
                 },
               ),
-              RaisedButton(
-                onPressed: () => createClass(context),
-                child: Text('Создать'),
-              )
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: RaisedButton(
+                  color: DarkTheme.btn,
+                  onPressed: () => createClass(context),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8),
+                    child: Text('Создать',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: DarkTheme.txt)),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

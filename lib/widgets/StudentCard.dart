@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tutor_helper/models/LessonModel.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 
+import 'package:tutor_helper/config/themeConfig.dart';
+
 class StudentCard extends StatelessWidget {
   final StudentModel student;
   final int lessonId;
@@ -15,7 +17,7 @@ class StudentCard extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(10, 0, 10, 10),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: Color(0xFF3f4674),
+        color: DarkTheme.prm,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -29,7 +31,7 @@ class StudentCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: DarkTheme.txt),
               ),
 //              Text('16 лет', style: TextStyle(color: Colors.white),)
             ],
@@ -60,7 +62,7 @@ class StudentCard extends StatelessWidget {
                                   child: Text(
                                     snapshot.data.name,
                                     style: TextStyle(
-                                        color: Colors.white,
+                                        color: DarkTheme.txt,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15),
                                   ),
@@ -68,7 +70,7 @@ class StudentCard extends StatelessWidget {
                               ],
                             );
                           } else {
-                            return Text('Загрузка');
+                            return Text('Загрузка', style: TextStyle(color: DarkTheme.txt),);
                           }
                         },
                       )
@@ -79,12 +81,12 @@ class StudentCard extends StatelessWidget {
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Icon(
                         Icons.phone,
-                        color: Colors.white,
+                        color: DarkTheme.txt,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Icon(Icons.alternate_email, color: Colors.white),
+                      child: Icon(Icons.alternate_email, color: DarkTheme.txt),
                     ),
                   ],
                 )

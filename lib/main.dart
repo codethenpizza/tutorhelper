@@ -5,6 +5,7 @@ import 'package:tutor_helper/screens/Dashboard.dart';
 import 'package:tutor_helper/screens/Class.dart';
 import 'package:tutor_helper/screens/StudentsList.dart';
 import 'package:tutor_helper/widgets/StudentCard.dart';
+import 'package:tutor_helper/screens/Student.dart';
 //import 'package:tutor_helper/screens/ForTests.dart';
 import 'package:tutor_helper/screens/UserLessonCreate.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
 //        backgroundColor: Color(0xFF383c5d),
           scaffoldBackgroundColor: DarkTheme.main,
 //        primaryColorDark: Colors.blue,
-//        primarySwatch: Color(0xFF5dcb9a),
+//        primarySwatch: ,
           primaryColor: DarkTheme.prm,
 //      primaryColor: Color(0xFF5dcb9a),
       ),
@@ -47,6 +48,7 @@ class MyHomePage extends StatefulWidget {
     DrawerItem('Архив', Icons.archive, ClassesList()),
     DrawerItem('Статистика', Icons.equalizer, ClassesList()),
     DrawerItem('Тест (Class)', Icons.accessible_forward, ClassP()),
+    DrawerItem('Тест (Student)', Icons.accessible_forward, Student()),
   ];
 
   @override
@@ -87,28 +89,35 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text('TutorHelper'),
       ),
       drawer: Drawer(
+      child: Container(
+        color: DarkTheme.main,
         child: Column(
           children: <Widget>[
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(
-                  color: DarkTheme.acc
+//            UserAccountsDrawerHeader(
+//              decoration: BoxDecoration(
+//                  color: DarkTheme.acc
+//              ),
+//            ),
+            Padding(
+              padding: const EdgeInsets.only(top:30.0),
+              child: Column(
+                children: drawerOptions,
               ),
             ),
-            Column(children: drawerOptions),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.settings),
-                    title: Text('Настройки'),
+                    leading: Icon(Icons.settings, color: DarkTheme.txt,),
+                    title: Text('Настройки', style: TextStyle(color: DarkTheme.txt),),
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => UserLessonCreate()));
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.feedback),
-                    title: Text('Обратная связь'),
+                    leading: Icon(Icons.feedback, color: DarkTheme.txt,),
+                    title: Text('Обратная связь', style: TextStyle(color: DarkTheme.txt)),
 
                   ),
                 ],
@@ -116,6 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
             )
           ],
         ),
+      ),
+
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:tutor_helper/config/themeConfig.dart';
+
 class Class extends StatefulWidget {
   @override
   State createState() => ClassState();
@@ -16,7 +18,7 @@ class ClassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: Color(0x005dcb9a),
+        color: DarkTheme.prm,
         borderOnForeground: false,
         elevation: 0,
         child: Column(
@@ -28,8 +30,8 @@ class ClassCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('12:30', style: TextStyle(fontSize: 20,color: Colors.white, fontWeight: FontWeight.bold),),
-                    Text('1000R', style: TextStyle(fontSize: 20,color: Colors.white, fontWeight: FontWeight.bold),),
+                    Text('12:30', style: TextStyle(fontSize: 20,color: DarkTheme.txt, fontWeight: FontWeight.bold),),
+                    Text('1000R', style: TextStyle(fontSize: 20,color: DarkTheme.txt, fontWeight: FontWeight.bold),),
                   ],
                 )
             ),
@@ -37,7 +39,7 @@ class ClassCard extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xFF3f4674),
+                  color: DarkTheme.prm,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Padding(
@@ -50,7 +52,7 @@ class ClassCard extends StatelessWidget {
                           child: Row(
                             children: <Widget>[
 
-                              Text('Андрей Торбенков', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),),
+                              Text('Андрей Торбенков', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: DarkTheme.txt),),
                             ],
                           )
                       ),
@@ -68,7 +70,7 @@ class ClassCard extends StatelessWidget {
                                   child: Container(height: 15,width: 15, color: Color(0xFF5dcb9a),),),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Text('Math', style: TextStyle(color:Colors.white, fontWeight: FontWeight.bold, fontSize: 15),),
+                                  child: Text('Math', style: TextStyle(color:DarkTheme.txt, fontWeight: FontWeight.bold, fontSize: 15),),
                                 ),
                               ],
                             ),
@@ -77,11 +79,11 @@ class ClassCard extends StatelessWidget {
                               children: <Widget>[
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(Icons.phone, color: Colors.white,),
+                                  child: Icon(Icons.phone, color: DarkTheme.txt,),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(Icons.alternate_email, color: Colors.white),
+                                  child: Icon(Icons.alternate_email, color: DarkTheme.txt),
                                 ),
                               ],
                             )
