@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_helper/models/StLessonModel.dart';
+import 'package:tutor_helper/widgets/DashboardWidget.dart';
+import 'package:tutor_helper/screens/ClassCreate.dart';
+import 'package:tutor_helper/widgets/SortingWidget.dart';
+import 'package:tutor_helper/widgets/WeekSchedule.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -6,45 +11,53 @@ class Dashboard extends StatefulWidget {
 }
 
 class DashboardState extends State<Dashboard> {
+  Future lessons;
+  Future comingLessons;
+  Future pastLessons;
+
+
+  @override
+  void initState() {
+    super.initState();
+    lessons = StLessonModel().all();
+    pastLessons = StLessonModel().allPast();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-        ClassCard(),
-      ],
+    return SafeArea(
+      child: ListView(
+        children: <Widget>[
+          FutureBuilder(
+            future: lessons,
+            builder: (context, snapshot){
+              if(snapshot.hasData){
+                if(!snapshot.data.isEmpty)
+                  return Container();
+                else
+                  return DashboardWidget(
+                    title: 'Обучение',
+                    child: Column(
+                      children: <Widget>[
+                        Text('Добро пожаловать!'),
+                        Text('Давайте создадим первое занятие'),
+                        RaisedButton(
+                          child: Text('Создать'),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ClassCreate())),
+                        )
+                      ],
+                    ),
+                  );
+              }else{
+                return Container();
+              }
+            },
+          ),
+          SortingWidget(),
+          WeekSchedule(),
+        ],
+      ),
     );
   }
 }
 
-
-
-class ClassCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-//      elevation: 0,
-      child: InkWell(
-        onTap: (){},
-        child: Container(
-//          height: 100,
-          padding: EdgeInsets.all(10),
-          child: Text('Иван Иванов', style: TextStyle(fontSize: 20),),
-        ),
-      )
-    );
-  }
-}

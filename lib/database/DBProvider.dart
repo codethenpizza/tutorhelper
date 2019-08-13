@@ -20,58 +20,48 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'TutorHelper.db');
-    return await openDatabase(path, version: 4,
+    String path = join(documentsDirectory.path, 'Tutor_helper_1.db');
+    return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
-          await db.execute("CREATE TABLE Students ("
-              "id INTEGER PRIMARY KEY, "
-              "name TEXT, "
-              "phone TEXT, "
-              "email TEXT"
-              ")");
+      await db.execute("CREATE TABLE Students ("
+          "id INTEGER PRIMARY KEY, "
+          "name TEXT, "
+          "phone TEXT, "
+          "email TEXT, "
+          "show INTEGER"
+          ")");
 
-          await db.execute("CREATE TABLE S_contact_faces ("
-              "id INTEGER PRIMARY KEY, "
-              "student_id INTEGER, "
-              "name TEXT, "
-              "phone TEXT, "
-              "email TEXT"
-              ")");
+      await db.execute("CREATE TABLE S_contact_faces ("
+          "id INTEGER PRIMARY KEY, "
+          "student_id INTEGER, "
+          "name TEXT, "
+          "phone TEXT, "
+          "email TEXT"
+          ")");
 
-          await db.execute("CREATE TABLE Lessons ("
-              "id INTEGER PRIMARY KEY, "
-              "name TEXT, "
-              "desc TEXT, "
-              "cost INTEGER, "
-              "color INTEGER"
-              ")");
+      await db.execute("CREATE TABLE Lessons ("
+          "id INTEGER PRIMARY KEY, "
+          "name TEXT, "
+          "desc TEXT, "
+          "cost INTEGER, "
+          "color INTEGER, "
+          "duration INTEGER, "
+          "show INTEGER"
+          ")");
 
-          await db.execute("CREATE TABLE S_Lessons ("
-              "id INTEGER PRIMARY KEY, "
-              "student_id INTEGER, "
-              "lesson_id INTEGER, "
-              "date INTEGER, "
-              "duration INTEGER, "
-              "total_cost INTEGER"
-              ")");
-        }, onUpgrade: (Database db, int oldVersion, int newVersion) async {
-          print(['onUpgrade', oldVersion, newVersion]);
-          await db.execute("DROP TABLE S_Lessons");
-
-          await db.execute("CREATE TABLE S_Lessons ("
-              "id INTEGER PRIMARY KEY, "
-              "student_id INTEGER, "
-              "lesson_id INTEGER, "
-              "date TEXT, "
-              "duration INTEGER, "
-              "total_cost INTEGER"
-              ")");
-        },
-        onOpen: (Database db) async {
-          print(['onOpen', await db.getVersion()]);
-        }
-    );
+      await db.execute("CREATE TABLE S_Lessons ("
+          "id INTEGER PRIMARY KEY, "
+          "student_id INTEGER, "
+          "lesson_id INTEGER, "
+          "date TEXT, "
+          "duration INTEGER, "
+          "total_cost INTEGER, "
+          "homework TEXT"
+          ")");
+    }, onUpgrade: (Database db, int oldVersion, int newVersion) async {
+      print(['onUpgrade', oldVersion, newVersion]);
+    }, onOpen: (Database db) async {
+      print(['onOpen', await db.getVersion()]);
+    });
   }
-
-
 }

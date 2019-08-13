@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_helper/widgets/StudentCard.dart';
-import '../main.dart';
 import 'StudentCreate.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 
+
 class StudentsList extends StatefulWidget {
+
+  StudentsList({Key key}):super(key: key);
 
   @override
   State createState() => StudentsListState();
 }
 
 class StudentsListState extends  State<StudentsList>{
+
   Future future = StudentModel().all();
+
+  updateState(){
+    setState(() {
+      future = StudentModel().all();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,19 +29,22 @@ class StudentsListState extends  State<StudentsList>{
         future: future,
         builder: (BuildContext context, snapshot) {
           if(snapshot.hasData){
-            return ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  StudentModel item = snapshot.data[index];
-                  return Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: StudentCard(item),
-                  );
-                },
-            );
+            if(snapshot.data.isEmpty)
+              return Center(child: Text('Вы еще не добавили ни одного ученика'),);
+            else
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    StudentModel item = snapshot.data[index];
+                    return Padding(
+                      padding: EdgeInsets.only(top: 8),
+                      child: StudentCard(item),
+                    );
+                  },
+              );
           }else{
             return Center(
-              child: Text('Ученики отсутствуют'),
+              child: Text('Загрузка'),
             );
           }
         },
@@ -41,11 +53,7 @@ class StudentsListState extends  State<StudentsList>{
         onPressed: () {
 //          StudentModel().all();
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => StudentCreate())).then((val){
-                setState(() {
-                  future = StudentModel().all();
-                });
-          });
+              MaterialPageRoute(builder: (context) => StudentCreate())).then((val) => updateState());
         },
         child: Icon(Icons.person_add),
       ),

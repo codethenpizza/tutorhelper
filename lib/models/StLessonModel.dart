@@ -3,6 +3,7 @@
 //     final stLessonModel = stLessonModelFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'package:tutor_helper/database/DBProvider.dart';
 
 import 'Model.dart';
@@ -21,6 +22,7 @@ class StLessonModel extends Model {
   String date;
   int duration;
   int totalCost;
+  String homework;
 
   StLessonModel({
     this.id,
@@ -29,6 +31,7 @@ class StLessonModel extends Model {
     this.date,
     this.duration,
     this.totalCost,
+    this.homework
   });
 
   fromMap(Map<String, dynamic> json) => new StLessonModel(
@@ -38,7 +41,8 @@ class StLessonModel extends Model {
         date: json["date"],
         duration: json["duration"],
         totalCost: json["total_cost"],
-      );
+        homework: json["homework"],
+  );
 
   Map<String, dynamic> toMap() => {
         "id": id,
@@ -47,6 +51,7 @@ class StLessonModel extends Model {
         "date": date,
         "duration": duration,
         "total_cost": totalCost,
+        "homework": homework,
       };
 
   Future allComing() async {
@@ -61,6 +66,40 @@ class StLessonModel extends Model {
     List<dynamic> list =
     res.isNotEmpty ? res.map((c) => this.fromMap(c)).toList() : [];
     return list;
+  }
+
+  Future allPast() async {
+    final db = await DBProvider.db.database;
+
+    var res = await db.query(
+      this.tableName,
+      orderBy: "date",
+      where: "date < ?",
+      whereArgs: [DateTime.now().toIso8601String()],
+    );
+    List<dynamic> list =
+    res.isNotEmpty ? res.map((c) => this.fromMap(c)).toList() : [];
+    return list;
+  }
+
+  Future nextWeek() async {
+    final db = await DBProvider.db.database;
+
+    var res = await db.query(
+      this.tableName,
+      orderBy: "date",
+      where: "date > ? AND date < ?",
+      whereArgs: [DateTime.now().toIso8601String(), DateTime.now().add(Duration(days: 7)).toIso8601String()],
+    );
+    List<dynamic> list =
+    res.isNotEmpty ? res.map((c) => this.fromMap(c)).toList() : [];
+    return list;
+  }
+
+  String timeFromTo(){
+    String from = DateFormat('HH:mm').format(DateTime.tryParse(this.date));
+    String to = DateFormat('HH:mm').format(DateTime.tryParse(this.date).add(new Duration(minutes: this.duration != null ? this.duration : 0)));
+    return '$from - $to';
   }
 
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_helper/models/LessonModel.dart';
-import 'package:tutor_helper/models/StudentModel.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
-//theme
-import 'package:tutor_helper/config/themeConfig.dart';
+import 'package:flushbar/flushbar.dart';
 
 class UserLessonCreate extends StatefulWidget {
+  final Function updateList;
+
+  UserLessonCreate({this.updateList}) : super();
 
   @override
   State createState() => UserLessonCreateState();
@@ -14,8 +15,9 @@ class UserLessonCreate extends StatefulWidget {
 class UserLessonCreateState extends State<UserLessonCreate> {
   String name;
   String desc;
+  int duration;
   int cost;
-  int _color;
+  int _color = Colors.red.value;
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,13 +26,13 @@ class UserLessonCreateState extends State<UserLessonCreate> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+          child: ListView(
             children: <Widget>[
               MaterialColorPicker(
                 onMainColorChange: (ColorSwatch color) {
                   _color = color.value;
                 },
+                selectedColor: Color(_color),
                 allowShades: false,
 //                selectedColor: Colors.red,
                 colors: [
@@ -40,24 +42,11 @@ class UserLessonCreateState extends State<UserLessonCreate> {
                   Colors.lightGreen,
                   Colors.blueAccent,
                 ],
-                circleSize: 50,
+                circleSize: 40,
               ),
               TextField(
                 decoration: InputDecoration(
-                  enabledBorder:
-                  UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: DarkTheme.txt)),
-                  focusedBorder:
-                  UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color:
-                          DarkTheme.acc)),
                   labelText: 'Название',
-                  labelStyle: TextStyle(color: DarkTheme.txt),
-                    border: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: DarkTheme.txt)),
                 ),
                 onChanged: (str) {
                   name = str;
@@ -65,20 +54,7 @@ class UserLessonCreateState extends State<UserLessonCreate> {
               ),
               TextField(
                 decoration: InputDecoration(
-                  enabledBorder:
-                  UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: DarkTheme.txt)),
-                  focusedBorder:
-                  UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color:
-                          DarkTheme.acc)),
                   labelText: 'Описание',
-                  labelStyle: TextStyle(color: DarkTheme.txt),
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: DarkTheme.txt)),
                 ),
                 minLines: 2,
                 maxLines: 5,
@@ -88,20 +64,16 @@ class UserLessonCreateState extends State<UserLessonCreate> {
               ),
               TextField(
                 decoration: InputDecoration(
-                    enabledBorder:
-                    UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: DarkTheme.txt)),
-                    focusedBorder:
-                    UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color:
-                            DarkTheme.acc)),
+                  labelText: 'Длительность в минутах',
+                ),
+                keyboardType: TextInputType.number,
+                onChanged: (str) {
+                  duration = int.parse(str);
+                },
+              ),
+              TextField(
+                decoration: InputDecoration(
                   labelText: 'Цена',
-                  labelStyle: TextStyle(color: DarkTheme.txt),
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                          color: DarkTheme.txt)),
                 ),
                 keyboardType: TextInputType.number,
                 onChanged: (str) {
@@ -111,28 +83,31 @@ class UserLessonCreateState extends State<UserLessonCreate> {
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: RaisedButton(
-                  color: DarkTheme.btn,
-                  onPressed: () => createLesson(context),
+                  color: Theme.of(context).buttonColor,
+                  textColor: Colors.white,
+                  onPressed: () => createLesson(),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 8.0, right: 8),
-                    child: const Text('Создать',
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: DarkTheme.txt)),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+                    child: const Text('Создать'),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),
       );
 
-  createLesson(BuildContext context) async {
-    LessonModel lesson = new LessonModel(color: _color, name: name, desc: desc, cost: cost);
-//    print(lesson.toMap());
+  createLesson() async {
+    LessonModel lesson = new LessonModel(
+        color: _color, name: name, desc: desc, duration: duration, cost: cost);
+
     await lesson.save();
-//    Scaffold.of(context).showSnackBar(SnackBar(content: Text('Студент создан!'),duration: Duration(seconds: 1),));
+
     Navigator.pop(context);
+    Flushbar(
+      message: 'Шаблон создан',
+      duration: Duration(seconds: 3),
+    )..show(context);
+    widget.updateList();
   }
 }
