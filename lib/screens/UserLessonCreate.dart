@@ -19,83 +19,223 @@ class UserLessonCreateState extends State<UserLessonCreate> {
   int cost;
   int _color = Colors.red.value;
 
+//  @override
+//  Widget build(BuildContext context) => Scaffold(
+//        appBar: AppBar(
+//          title: Text('TutorHelper'),
+//        ),
+//        body: Padding(
+//          padding: const EdgeInsets.all(8.0),
+//          child: ListView(
+//            children: <Widget>[
+//              MaterialColorPicker(
+//                onMainColorChange: (ColorSwatch color) {
+//                  _color = color.value;
+//                },
+//                selectedColor: Color(_color),
+//                allowShades: false,
+////                selectedColor: Colors.red,
+//                colors: [
+//                  Colors.red,
+//                  Colors.deepOrange,
+//                  Colors.yellow,
+//                  Colors.lightGreen,
+//                  Colors.blueAccent,
+//                ],
+//                circleSize: 40,
+//              ),
+//              TextField(
+//                decoration: InputDecoration(
+//                  labelText: 'Название',
+//                ),
+//                onChanged: (str) {
+//                  name = str;
+//                },
+//              ),
+//              TextField(
+//                decoration: InputDecoration(
+//                  labelText: 'Описание',
+//                ),
+//                minLines: 2,
+//                maxLines: 5,
+//                onChanged: (str) {
+//                  desc = str;
+//                },
+//              ),
+//              TextField(
+//                decoration: InputDecoration(
+//                  labelText: 'Длительность в минутах',
+//                ),
+//                keyboardType: TextInputType.number,
+//                onChanged: (str) {
+//                  duration = int.parse(str);
+//                },
+//              ),
+//              TextField(
+//                decoration: InputDecoration(
+//                  labelText: 'Цена',
+//                ),
+//                keyboardType: TextInputType.number,
+//                onChanged: (str) {
+//                  cost = int.parse(str);
+//                },
+//              ),
+//              Padding(
+//                padding: const EdgeInsets.all(15.0),
+//                child: RaisedButton(
+//                  color: Theme.of(context).buttonColor,
+//                  textColor: Colors.white,
+//                  onPressed: () => createLesson(),
+//                  child: Padding(
+//                    padding: const EdgeInsets.only(left: 8.0, right: 8),
+//                    child: const Text('Создать'),
+//                  ),
+//                ),
+//              )
+//            ],
+//          ),
+//        ),
+//      );
+  //TODO: move block to end of screen
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text('TutorHelper'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[
-              MaterialColorPicker(
-                onMainColorChange: (ColorSwatch color) {
-                  _color = color.value;
-                },
-                selectedColor: Color(_color),
-                allowShades: false,
-//                selectedColor: Colors.red,
-                colors: [
-                  Colors.red,
-                  Colors.deepOrange,
-                  Colors.yellow,
-                  Colors.lightGreen,
-                  Colors.blueAccent,
-                ],
-                circleSize: 40,
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Название',
-                ),
-                onChanged: (str) {
-                  name = str;
-                },
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Описание',
-                ),
-                minLines: 2,
-                maxLines: 5,
-                onChanged: (str) {
-                  desc = str;
-                },
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Длительность в минутах',
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (str) {
-                  duration = int.parse(str);
-                },
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Цена',
-                ),
-                keyboardType: TextInputType.number,
-                onChanged: (str) {
-                  cost = int.parse(str);
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: RaisedButton(
-                  color: Theme.of(context).buttonColor,
-                  textColor: Colors.white,
-                  onPressed: () => createLesson(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: const Text('Создать'),
-                  ),
-                ),
-              )
-            ],
+  Widget build(BuildContext context) {
+    return Container(
+      child: new Stack(
+        children: <Widget>[
+          new Container(
+            child: new Image.asset('assets/appbarfullbg.jpg', fit: BoxFit.cover, height: MediaQuery.of(context).size.height, ),
+            color: Colors.lightGreen,
           ),
-        ),
-      );
+          Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
+              title: Text('TutorHelper'),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+            ),
+            body: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ListView(
+                children: <Widget>[
+                  //block
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                        color: Theme.of(context).backgroundColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            children: <Widget>[
+                              //space inside block
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  MaterialColorPicker(
+                                    onMainColorChange: (ColorSwatch color) {
+                                      _color = color.value;
+                                    },
+                                    selectedColor: Color(_color),
+                                    allowShades: false,
+//                selectedColor: Colors.red,
+                                    colors: [
+                                      Colors.red,
+                                      Colors.deepOrange,
+                                      Colors.yellow,
+                                      Colors.lightGreen,
+                                      Colors.blueAccent,
+                                    ],
+                                    circleSize: 40,
+                                  ),
+                                ],
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Название',
+                                ),
+                                onChanged: (str) {
+                                  name = str;
+                                },
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Описание',
+                                ),
+                                minLines: 2,
+                                maxLines: 5,
+                                onChanged: (str) {
+                                  desc = str;
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  //last block w/ button
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10.0),
+                      child: Container(
+                        color: Theme.of(context).backgroundColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Column(
+                            children: <Widget>[
+                              //space inside block
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Длительность в минутах',
+                                ),
+                                keyboardType: TextInputType.number,
+                                onChanged: (str) {
+                                  duration = int.parse(str);
+                                },
+                              ),
+                              TextField(
+                                decoration: InputDecoration(
+                                  labelText: 'Цена',
+                                ),
+                                keyboardType: TextInputType.number,
+                                onChanged: (str) {
+                                  cost = int.parse(str);
+                                },
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: RaisedButton(
+                                  onPressed: () => createLesson(),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        'Создать',
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .backgroundColor,
+                                            fontSize: 17),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 
   createLesson() async {
     LessonModel lesson = new LessonModel(

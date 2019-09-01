@@ -1,7 +1,10 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tutor_helper/widgets/ClassWidget.dart';
 import 'package:tutor_helper/models/StLessonModel.dart';
+import 'package:tutor_helper/widgets/WeekChartWidget.dart';
 import 'dart:math' as math;
 
 import 'ClassCreate.dart';
@@ -30,10 +33,19 @@ class ClassesListState extends State<ClassesList> {
               List list = snapshot.data;
               List<Widget> _slivers = [];
 
+
               DateTime maxDate = DateTime.now();
               int maxDay = 0;
 
               List<Widget> _sliverWidgets = [];
+
+              _slivers.add(SliverList(
+                  delegate: SliverChildListDelegate([
+                Container(
+                  height: 200,
+                  child: StackedBarChart.withSampleData(),
+                )
+              ])));
 
               for (int index = 0; index < list.length; index++) {
                 DateTime itemDate = DateTime.parse(list[index].date);
@@ -55,8 +67,8 @@ class ClassesListState extends State<ClassesList> {
                       pinned: true,
 //                        floating: true,
                       delegate: _SliverAppBarDelegate(
-                        maxHeight: 70,
-                        minHeight: 50,
+                        maxHeight: 50,
+                        minHeight: 0,
                         child: Container(
 //                            margin: EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
@@ -75,11 +87,12 @@ class ClassesListState extends State<ClassesList> {
                     ));
 
                     _sliverWidgets.add(Container(
-                      height: 130,
+                      height: 100,
                       child: Center(
                         child: Text(
                           'день свободен',
-                          style: TextStyle(fontSize: 20, color: Colors.grey[300]),
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.grey[300]),
                         ),
                       ),
                     ));
@@ -93,12 +106,16 @@ class ClassesListState extends State<ClassesList> {
                     pinned: true,
 //                        floating: true,
                     delegate: _SliverAppBarDelegate(
-                      maxHeight: 70,
-                      minHeight: 50,
+                      maxHeight: 40,
+                      minHeight: 5,
                       child: Container(
 //                            margin: EdgeInsets.only(bottom: 10),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
+//                            color: Theme.of(context).primaryColor,
+                            gradient: LinearGradient(colors: [
+                              Color(0xFF86acee),
+                              Color(0xFFa584f9),
+                            ]),
                             boxShadow: [
                               BoxShadow(color: Color(0x55000000), blurRadius: 4)
                             ],

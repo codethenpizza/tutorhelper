@@ -38,18 +38,36 @@ class MyApp extends StatelessWidget {
 //      primaryColor: Color(0xFF5dcb9a),
       ),*/
       theme: ThemeData.light().copyWith(
-        accentColor: Colors.greenAccent,
-        primaryColor: Colors.green,
-        buttonColor: Colors.green,
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Colors.green
+        accentColor: Color(0xFFa483f9),
+        primaryColor: Color(0xFF8ea0f1),
+//        buttonColor: Color(0xFFa483f9),
+        backgroundColor: Color(0xFFFFFFFF),
+        buttonTheme: ButtonThemeData(
+            shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+            buttonColor: Color(0xFFa483f9),
+//            textTheme: ButtonTextTheme.normal,
+            minWidth: 120,
+            height: 35,
+
         ),
+        floatingActionButtonTheme:
+            FloatingActionButtonThemeData(backgroundColor: Color(0xFFa483f9)),
         textTheme: ThemeData.light().textTheme.copyWith(
-          headline: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-          )
-        ),
+              headline: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+              body1: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 19,
+                color: Colors.black54,
+              ),
+              body2: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 16,
+                color: Colors.black38,
+              ),
+            ),
       ),
       home: MyHomePage(),
     );
@@ -70,7 +88,12 @@ class MyHomePage extends StatefulWidget {
   final List<DrawerItem> drawerItems = [
     DrawerItem('Расписание', Icons.access_time, ClassesList()),
     DrawerItem('Архив', Icons.archive, ClassesArchive()),
-    DrawerItem('Ученики', Icons.people, StudentsList(key: studentListKey,)),
+    DrawerItem(
+        'Ученики',
+        Icons.people,
+        StudentsList(
+          key: studentListKey,
+        )),
     DrawerItem('Предметы', Icons.list, UserLessonsList()),
     DrawerItem('Обратная связь', Icons.feedback, UserLessonsList()),
 //    DrawerItem('Главная', Icons.home, Dashboard()),
@@ -114,6 +137,35 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: () => _onSelectItem(i),
       ));
     }
+
+    return new Container(
+        child: new Stack(
+            children: <Widget>[
+      new Container(
+        child: new Image.asset('assets/appbarbg.jpg'),
+        color: Colors.lightGreen,
+      ),
+      new Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: Text(appBarTitle),
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+        ),
+        drawer: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: Container(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: drawerOptions,
+              ),
+            ),
+          ),
+        ),
+        body: _getDrawerItemWidget(_selectedDrawerIndex),
+      )
+    ]));
 
     return Scaffold(
       appBar: AppBar(

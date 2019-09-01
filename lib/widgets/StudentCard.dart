@@ -15,7 +15,7 @@ class StudentCard extends StatelessWidget {
     return Card(
       child: Container(
         margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -25,11 +25,14 @@ class StudentCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                InkWell(
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Student(student))),
-                  child: Text(
-                    student.name,
-                    style: Theme.of(context).textTheme.title,
+                Flexible(
+                  child: InkWell(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Student(student))),
+                    child: Text(
+                      student.name,
+                      maxLines: 4,
+                      style: Theme.of(context).textTheme.title,
+                    ),
                   ),
                 )
 //              Text('16 лет', style: TextStyle(color: Colors.white),)
@@ -40,42 +43,53 @@ class StudentCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  lessonId != null
-                      ? FutureBuilder(
-                          future: LessonModel().find(lessonId),
-                          builder:
-                              (context, AsyncSnapshot snapshot) {
-                            if (snapshot.hasData) {
-                              return Row(
-                                children: <Widget>[
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(50),
-                                    child: Container(
-                                      height: 15,
-                                      width: 15,
-                                      color: Color(snapshot.data.color),
+                  Expanded(
+                    flex: 2,
+                    child: lessonId != null
+                        ? FutureBuilder(
+                            future: LessonModel().find(lessonId),
+                            builder:
+                                (context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Container(
+                                        height: 15,
+                                        width: 15,
+                                        color: Color(snapshot.data.color),
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 8.0),
-                                    child: Text(
-                                      snapshot.data.name,
-                                      style: Theme.of(context).textTheme.body1),
-                                  ),
-                                ],
-                              );
-                            } else {
-                              return Text('Загрузка');
-                            }
-                          },
-                        )
-                      : Container(),
-                  Row(
-                    children: <Widget>[
-                      IconButton(icon: Icon(Icons.phone), onPressed: () => launch("tel:${student.phone}")),
-                      IconButton(icon: Icon(Icons.sms), onPressed: () => launch("sms:${student.phone}")),
-                      IconButton(icon: Icon(Icons.email), onPressed: () => launch("mailto:${student.email}")),
-                    ],
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 8.0),
+                                        child: Text(
+                                          snapshot.data.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context).textTheme.body2),
+                                      ),
+                                      flex: 1,
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return Text('Загрузка');
+                              }
+                            },
+                          )
+                        : Container(),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: Row(
+                      children: <Widget>[
+                        IconButton(icon: Icon(Icons.phone), onPressed: () => launch("tel:${student.phone}")),
+                        IconButton(icon: Icon(Icons.sms), onPressed: () => launch("sms:${student.phone}")),
+                        IconButton(icon: Icon(Icons.email), onPressed: () => launch("mailto:${student.email}")),
+                      ],
+                    ),
                   )
                 ],
               ),

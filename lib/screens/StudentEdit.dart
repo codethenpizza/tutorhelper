@@ -24,7 +24,8 @@ class StudentEditState extends State<StudentEdit> {
     phoneController.text = widget.student.phone;
     emailController.text = widget.student.email;
   }
-
+  //TODO: Change when student create will be ready
+  //TODO: Add delete button
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(

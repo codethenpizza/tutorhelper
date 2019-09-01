@@ -33,14 +33,14 @@ class StudentsListState extends  State<StudentsList>{
               return Center(child: Text('Вы еще не добавили ни одного ученика'),);
             else
               return ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    StudentModel item = snapshot.data[index];
-                    return Padding(
-                      padding: EdgeInsets.only(top: 8),
-                      child: StudentCard(item),
-                    );
-                  },
+                itemCount: snapshot.data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  StudentModel item = snapshot.data[index];
+                  return Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: StudentCard(item),
+                  );
+                },
               );
           }else{
             return Center(
@@ -59,4 +59,5 @@ class StudentsListState extends  State<StudentsList>{
       ),
     );
   }
+
 }

@@ -96,10 +96,20 @@ class StLessonModel extends Model {
     return list;
   }
 
-  String timeFromTo(){
+//  String timeFromTo(){
+//    String from = DateFormat('HH:mm').format(DateTime.tryParse(this.date));
+//    String to = DateFormat('HH:mm').format(DateTime.tryParse(this.date).add(new Duration(minutes: this.duration != null ? this.duration : 0)));
+//    return '$from - $to';
+//  }
+
+  String timeFrom(){
     String from = DateFormat('HH:mm').format(DateTime.tryParse(this.date));
+    return '$from';
+  }
+
+  String timeTo(){
     String to = DateFormat('HH:mm').format(DateTime.tryParse(this.date).add(new Duration(minutes: this.duration != null ? this.duration : 0)));
-    return '$from - $to';
+    return '$to';
   }
 
 }

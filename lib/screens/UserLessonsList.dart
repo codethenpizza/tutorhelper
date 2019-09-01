@@ -29,44 +29,134 @@ class UserLessonsListState extends State<UserLessonsList> {
                     builder: (context) => UserLessonCreate(
                           updateList: updateList,
                         )))),
-        body: FutureBuilder(
-            future: lessons,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data.length == 0) {
-                  return Center(
-                    child: Text('Вы не создали ни одного шаблона занятий'),
-                  );
-                } else {
-                  List lessons = snapshot.data;
-                  return ListView(
-                      children: lessons
-                          .map((lesson) => ListTile(
-                                title: Text(lesson.name),
-                                leading: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Container(
-                                    height: 15,
-                                    width: 15,
-                                    color: Color(lesson.color),
-                                  ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            children: <Widget>[
+              Card(
+                child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Математика",
+                          style: Theme.of(context).textTheme.title.copyWith(fontSize: 20),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            height: 8,
+                            width: 400,
+                            // Lesson color here
+                            color: Colors.amber,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.access_alarm),
+                                  Text('60 Минут', style: TextStyle(fontWeight: FontWeight.w400),),
+                                ],
+                              ),
+                              ),
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.attach_money),
+                                    Text('1000', style: TextStyle(fontWeight: FontWeight.w400),),
+                                  ],
                                 ),
-                                onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => UserLessonEdit(
-                                              lesson: lesson,
-                                              updateList: updateList,
-                                              scaffoldContext: context,
-                                            ))),
-                              ))
-                          .toList());
-                }
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            }));
+                              )
+
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              )
+            ],
+          ),
+        )
+
+//        Padding(
+//          padding: const EdgeInsets.all(10.0),
+//          child: Column(
+//              children: <Widget>[
+//                Row(
+//                  children: <Widget>[
+//                    Card(
+//                      child: Padding(
+//                        padding: const EdgeInsets.all(8.0),
+//                        child: Column(
+//                          children: <Widget>[
+//                            ClipRRect(
+//                              borderRadius: BorderRadius.circular(10),
+//                              child: Container(
+//                                height: 8,
+//                                  width: 100,
+//                                  // Lesson color here
+//                                color: Colors.amber,
+//                              ),
+//                            ),
+//
+//                            Text("Математика", style: Theme.of(context).textTheme.title,),
+//                            Text('100r')
+//                          ],
+//                        )
+//                      ),
+//                    )
+//                  ],
+//                )
+//              ],
+//
+//          ),
+//        )
+
+//        FutureBuilder(
+//            future: lessons,
+//            builder: (context, snapshot) {
+//              if (snapshot.hasData) {
+//                if (snapshot.data.length == 0) {
+//                  return Center(
+//                    child: Text('Вы не создали ни одного шаблона занятий'),
+//                  );
+//                } else {
+//                  List lessons = snapshot.data;
+//                  return ListView(
+//                      children: lessons
+//                          .map((lesson) => ListTile(
+//                                title: Text(lesson.name),
+//                                leading: ClipRRect(
+//                                  borderRadius: BorderRadius.circular(50),
+//                                  child: Container(
+//                                    height: 15,
+//                                    width: 15,
+//                                    color: Color(lesson.color),
+//                                  ),
+//                                ),
+//                                onTap: () => Navigator.push(
+//                                    context,
+//                                    MaterialPageRoute(
+//                                        builder: (context) => UserLessonEdit(
+//                                              lesson: lesson,
+//                                              updateList: updateList,
+//                                              scaffoldContext: context,
+//                                            ))),
+//                              ))
+//                          .toList());
+//                }
+//              } else {
+//                return Center(
+//                  child: CircularProgressIndicator(),
+//                );
+//              }
+//            })
+        );
   }
 }
