@@ -2,6 +2,8 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_helper/models/LessonModel.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
+import 'package:tutor_helper/widgets/Layout.dart';
+import 'package:tutor_helper/widgets/CardLayout.dart';
 
 class UserLessonEdit extends StatefulWidget {
   final LessonModel lesson;
@@ -18,6 +20,7 @@ class UserLessonEdit extends StatefulWidget {
 
 class UserLessonEditState extends State<UserLessonEdit> {
   int _color;
+  var _formKey = GlobalKey<FormState>();
 
   TextEditingController nameController = new TextEditingController();
   TextEditingController descController = new TextEditingController();
@@ -63,81 +66,140 @@ class UserLessonEditState extends State<UserLessonEdit> {
               ),
         ));
   }
-  //TODO: change when lesson create will be ready
+
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text('TutorHelper'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.delete), onPressed: removeUserLesson)
-          ],
+  Widget build(BuildContext context) => Container(
+          child: new Stack(children: <Widget>[
+        new Container(
+          child: new Image.asset(
+            'assets/appbarfullbg.jpg',
+            fit: BoxFit.cover,
+            height: MediaQuery.of(context).size.height,
+          ),
+          color: Colors.lightGreen,
         ),
-        body: Builder(builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: <Widget>[
-                MaterialColorPicker(
-                  onMainColorChange: (ColorSwatch color) {
-                    _color = color.value;
-                  },
-                  selectedColor: Color(_color),
-                  allowShades: false,
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: Text('TutorHelper'),
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            actions: <Widget>[
+              IconButton(icon: Icon(Icons.delete), onPressed: removeUserLesson)
+            ],
+          ),
+          body: Builder(builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child:
+              Form(
+                key: _formKey,
+                child: ListView(
+                children: <Widget>[
+                  CardLayout(
+                    children: <Widget>[
+                      MaterialColorPicker(
+                        onMainColorChange: (ColorSwatch color) {
+                          _color = color.value;
+                        },
+                        selectedColor: Color(_color),
+                        allowShades: false,
 //                selectedColor: Colors.red,
-                  colors: [
-                    Colors.red,
-                    Colors.deepOrange,
-                    Colors.yellow,
-                    Colors.lightGreen,
-                    Colors.blueAccent,
-                  ],
-                  circleSize: 40,
-                ),
-                TextField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Название',
+                        colors: [
+                          Colors.red,
+                          Colors.deepOrange,
+                          Colors.yellow,
+                          Colors.lightGreen,
+                          Colors.blueAccent,
+                        ],
+                        circleSize: 40,
+                      ),
+                      TextFormField(
+                        controller: nameController,
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return "Название не может быть пустым";
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Название',
+                        ),
+                      ),
+                      TextField(
+                        controller: descController,
+                        decoration: InputDecoration(
+                          labelText: 'Описание',
+                        ),
+                        minLines: 2,
+                        maxLines: 5,
+                      ),
+                    ],
                   ),
-                ),
-                TextField(
-                  controller: descController,
-                  decoration: InputDecoration(
-                    labelText: 'Описание',
-                  ),
-                  minLines: 2,
-                  maxLines: 5,
-                ),
-                TextField(
-                  controller: durationController,
-                  decoration: InputDecoration(
-                    labelText: 'Длительность в минутах',
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                TextField(
-                  controller: costController,
-                  decoration: InputDecoration(
-                    labelText: 'Цена',
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: RaisedButton(
-                    color: Theme.of(context).buttonColor,
-                    textColor: Colors.white,
-                    onPressed: () => editLesson(context),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8),
-                      child: const Text('Обновить'),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          );
-        }),
-      );
+                  CardLayout(
+                    children: <Widget>[
+                      TextFormField(
+                        controller: durationController,
+                        validator: (String value) {
+                          if (value.isEmpty && value != null) {
+                            return "Укажите длительность";
+                          }
+//                                      else if (value ){
+//                                        return "Укажите длительность";
+//                                      }
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Длительность в минутах',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      TextFormField(
+                        controller: costController,
+                        validator: (String value) {
+                          if (value.isEmpty && value != null) {
+                            return "Укажите цену урока";
+                          }
+//                                      else if (value ){
+//                                        return "Укажите длительность";
+//                                      }
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Цена',
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_formKey.currentState.validate()) {
+                                editLesson(context);
+                              }
+                            });
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                'Обновить',
+                                style: TextStyle(
+                                    color: Theme.of(context).backgroundColor,
+                                    fontSize: 17),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              ),
+            );
+          }),
+        )
+      ]));
 
   editLesson(BuildContext context) async {
     LessonModel lesson = new LessonModel(

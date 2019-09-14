@@ -4,6 +4,10 @@ import 'package:tutor_helper/models/LessonModel.dart';
 import 'package:tutor_helper/models/StLessonModel.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
 import 'package:intl/intl.dart';
+import 'package:tutor_helper/widgets/Layout.dart';
+import 'package:tutor_helper/widgets/CardLayout.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:tutor_helper/SetNotifClass.dart';
 
 class ClassEdit extends StatefulWidget {
   final StLessonModel sLesson;
@@ -14,6 +18,7 @@ class ClassEdit extends StatefulWidget {
   State createState() => ClassEditState();
 }
 
+//TODO remake screen for new design
 class ClassEditState extends State<ClassEdit> {
   int studentId;
   int lessonId;
@@ -66,126 +71,152 @@ class ClassEditState extends State<ClassEdit> {
   }
 
 
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text('Редактирование занятия'),
-          actions: <Widget>[
-            IconButton(icon: Icon(Icons.delete), onPressed: removeClass)
+  Widget build(BuildContext context) =>
+      Layout(
+        title: 'Редактирование занятия',
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.delete), onPressed: removeClass)
+        ],
+        child: ListView(
+          children: <Widget>[
+            CardLayout(
+              children: <Widget>[
+                FutureBuilder(
+                  future: StudentModel().all(),
+                  builder: (context, AsyncSnapshot<List> snapshot) {
+                    if (snapshot.hasData) {
+                      List<DropdownMenuItem> list = snapshot.data
+                          .map((x) => DropdownMenuItem(
+                        value: x.id,
+                        child: Text(x.name),
+                      ))
+                          .toList();
+                      bool exist = list.where((item) => item.value == studentId).length == 1;
+                      return DropdownButton(
+                        isExpanded: true,
+                        onChanged: (val) {
+                          setState(() {
+                            studentId = val;
+                          });
+                        },
+                        items: list,
+                        value: exist ? studentId : null,
+                        hint: Text(exist ? 'Ученик' : 'Ученик был удален'),
+                      );
+                    } else {
+                      return Text('Загрузка');
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: LessonModel().all(),
+                  builder: (context, AsyncSnapshot<List> snapshot) {
+                    if (snapshot.hasData) {
+                      List<DropdownMenuItem> list = snapshot.data
+                          .map((x) => DropdownMenuItem(
+                        value: x.id,
+                        child: Text(x.name),
+                      ))
+                          .toList();
+                      bool exist = list.where((item) => item.value == lessonId).length == 1;
+                      return DropdownButton(
+                        isExpanded: true,
+                        onChanged: (val) {
+                          setState(() {
+                            lessonId = val;
+                          });
+                        },
+                        items: list,
+                        value: exist ? lessonId : null,
+                        hint: Text(exist ? 'Урок' : 'Урок был удален'),
+                      );
+                    } else {
+                      return Text('Загрузка');
+                    }
+                  },
+                ),
+                Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      DateFormat('HH:mm - d MMM yyyy', 'ru')
+                          .format(selectedDate),
+                      style: Theme.of(context).textTheme.body2,
+                    ),
+                    FlatButton(
+                        onPressed: () {
+                          DatePicker.showDateTimePicker(context,
+                              showTitleActions: true,
+                              onConfirm: (date) {
+                                print('confirm $date');
+                                setState(() {
+                                  selectedDate = date;
+                                });
+                              },
+                              currentTime: DateTime.now(),
+                              locale: LocaleType.ru);
+                        },
+                        child: Text(
+                          'Выбрать время',
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                  ],
+                ),
+              ],
+            ),
+            CardLayout(
+              children: <Widget>[
+                TextField(
+                  controller: durationController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Длительность в минутах',
+                  ),
+                ),
+                TextField(
+                  controller: costController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Конечная стоимость',
+                  ),
+                ),
+                TextField(
+                  controller: homeworkController,
+                  maxLines: 6,
+                  minLines: 6,
+                  decoration: InputDecoration(
+                    labelText: 'Домашнее задание',
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: RaisedButton(
+                    onPressed: () => createClass(context),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Создать',
+                          style: TextStyle(
+                              color:
+                              Theme.of(context).backgroundColor,
+                              fontSize: 17),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: ListView(
-            children: <Widget>[
-              FutureBuilder(
-                future: StudentModel().all(),
-                builder: (context, AsyncSnapshot<List> snapshot) {
-                  if (snapshot.hasData) {
-                    List<DropdownMenuItem> list = snapshot.data
-                        .map((x) => DropdownMenuItem(
-                              value: x.id,
-                              child: Text(x.name),
-                            ))
-                        .toList();
-                    bool exist = list.where((item) => item.value == studentId).length == 1;
-                    return DropdownButton(
-                      isExpanded: true,
-                      onChanged: (val) {
-                        setState(() {
-                          studentId = val;
-                        });
-                      },
-                      items: list,
-                      value: exist ? studentId : null,
-                      hint: Text(exist ? 'Ученик' : 'Ученик был удален'),
-                    );
-                  } else {
-                    return Text('Загрузка');
-                  }
-                },
-              ),
-              FutureBuilder(
-                future: LessonModel().all(),
-                builder: (context, AsyncSnapshot<List> snapshot) {
-                  if (snapshot.hasData) {
-                    List<DropdownMenuItem> list = snapshot.data
-                        .map((x) => DropdownMenuItem(
-                              value: x.id,
-                              child: Text(x.name),
-                            ))
-                        .toList();
-                    bool exist = list.where((item) => item.value == lessonId).length == 1;
-                    return DropdownButton(
-                      isExpanded: true,
-                      onChanged: (val) {
-                        setState(() {
-                          lessonId = val;
-                        });
-                      },
-                      items: list,
-                      value: exist ? lessonId : null,
-                      hint: Text(exist ? 'Урок' : 'Урок был удален'),
-                    );
-                  } else {
-                    return Text('Загрузка');
-                  }
-                },
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(
-                    DateFormat('d MMMM yyyy HH:mm', 'ru').format(selectedDate),
-                    style: Theme.of(context).textTheme.body2,
-                  ),
-                  RaisedButton(
-                    onPressed: () => _selectDate(context),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 8.0, right: 8),
-                      child: Text('Выбрать дату'),
-                    ),
-                  )
-                ],
-              ),
-              TextField(
-                controller: durationController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Длительность в минутах',
-                ),
-              ),
-              TextField(
-                controller: costController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Конечная стоимость',
-                ),
-              ),
-              TextField(
-                controller: homeworkController,
-                maxLines: 6,
-                minLines: 6,
-                decoration: InputDecoration(
-                  labelText: 'Домашнее задание',
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: RaisedButton(
-                  color: Theme.of(context).buttonColor,
-                  textColor: Colors.white,
-                  onPressed: () => createClass(context),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8),
-                    child: Text('Сохранить'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       );
+
+
+
 
   createClass(BuildContext context) async {
     StLessonModel stLesson = new StLessonModel(
@@ -197,7 +228,11 @@ class ClassEditState extends State<ClassEdit> {
         totalCost: int.parse(costController.text),
         homework: homeworkController.text
     );
-    await stLesson.save();
+    var id = await stLesson.save();
+    stLesson.id = id;
+    Notifications(context).setNotify(stLesson);
+//    await stLesson.save();
+//    Notifications(context).setNotify(stLesson);
 
     Navigator.pop(context);
     Flushbar(

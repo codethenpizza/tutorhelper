@@ -7,12 +7,18 @@ import 'package:tutor_helper/screens/ClassesArchive.dart';
 import 'package:tutor_helper/screens/ClassesList.dart';
 import 'package:tutor_helper/screens/Dashboard.dart';
 import 'package:tutor_helper/screens/Class.dart';
+import 'package:tutor_helper/screens/FeedbackScreen.dart';
 import 'package:tutor_helper/screens/Settings.dart';
 import 'package:tutor_helper/screens/StudentsList.dart';
 import 'package:tutor_helper/screens/UserLessonsList.dart';
 
+
+//delete in production
+import 'screens/ForTests.dart';
+
 void main() => runApp(MyApp());
 
+//TODO add skype
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -40,18 +46,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         accentColor: Color(0xFFa483f9),
         primaryColor: Color(0xFF8ea0f1),
+//        primaryTextTheme: Color(0xFFFFFFFF),
+
+
 //        buttonColor: Color(0xFFa483f9),
         backgroundColor: Color(0xFFFFFFFF),
         buttonTheme: ButtonThemeData(
             shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
             buttonColor: Color(0xFFa483f9),
+//            textTheme: ButtonTextTheme,
 //            textTheme: ButtonTextTheme.normal,
             minWidth: 120,
             height: 35,
 
         ),
         floatingActionButtonTheme:
-            FloatingActionButtonThemeData(backgroundColor: Color(0xFFa483f9)),
+            FloatingActionButtonThemeData(backgroundColor: Color(0xFFa483f9),),
         textTheme: ThemeData.light().textTheme.copyWith(
               headline: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -60,13 +70,16 @@ class MyApp extends StatelessWidget {
               body1: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 19,
-                color: Colors.black54,
+                color: Colors.black87,
               ),
               body2: TextStyle(
                 fontWeight: FontWeight.normal,
                 fontSize: 16,
-                color: Colors.black38,
+                color: Colors.black54,
               ),
+              button: TextStyle(
+                color: Color(0xFFFFFFFF),
+              )
             ),
       ),
       home: MyHomePage(),
@@ -94,8 +107,9 @@ class MyHomePage extends StatefulWidget {
         StudentsList(
           key: studentListKey,
         )),
-    DrawerItem('Предметы', Icons.list, UserLessonsList()),
-    DrawerItem('Обратная связь', Icons.feedback, UserLessonsList()),
+    DrawerItem('Предметы', Icons.list, UserLessonsList() ),
+    DrawerItem('Обратная связь', Icons.feedback, FeedbackScreen() ),
+    DrawerItem('test', Icons.feedback, ForTests() ),
 //    DrawerItem('Главная', Icons.home, Dashboard()),
 //    DrawerItem('Статистика', Icons.equalizer, ClassesList()),
 //    DrawerItem('Тест (Class)', Icons.accessible_forward, ClassP()),

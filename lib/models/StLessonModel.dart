@@ -54,17 +54,21 @@ class StLessonModel extends Model {
         "homework": homework,
       };
 
-  Future allComing() async {
+  Future<List<StLessonModel>> allComing({DateTime date}) async {
     final db = await DBProvider.db.database;
 
-    var res = await db.query(
+    date = date ?? DateTime.now();
+
+    List res = await db.query(
         this.tableName,
         orderBy: "date",
         where: "date > ?",
-        whereArgs: [DateTime.now().toIso8601String()],
+        whereArgs: [date.toIso8601String()],
     );
-    List<dynamic> list =
-    res.isNotEmpty ? res.map((c) => this.fromMap(c)).toList() : [];
+
+    List<StLessonModel> list = [];
+    res.map((c) => list.add(this.fromMap(c))).toList();
+    //TODO Problems with empty array?
     return list;
   }
 

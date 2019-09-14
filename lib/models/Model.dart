@@ -11,11 +11,14 @@ abstract class Model<T> {
   save() async {
     final db = await DBProvider.db.database;
 //    print(this.toMap());
+    var res;
     if (this.id == null)
-      var res = db.insert(this.tableName, this.toMap());
+      res = db.insert(this.tableName, this.toMap());
     else
-      var res = db.update(this.tableName, this.toMap(),
+      res = db.update(this.tableName, this.toMap(),
           where: 'id = ?', whereArgs: [this.id]);
+
+    return res;
   }
 
   delete() async {

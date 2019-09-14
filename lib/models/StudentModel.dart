@@ -70,10 +70,10 @@ class StudentModel extends Model{
 
     var res = await db.query(StLessonModel().tableName, orderBy: "date", where: "date > ? AND student_id = ?", whereArgs: [DateTime.now().toIso8601String(), this.id]);
 
-    List<dynamic> list =
-    res.isNotEmpty ? res.map((c) => StLessonModel().fromMap(c)).toList() : null;
+    var item =
+    res.isNotEmpty ? StLessonModel().fromMap(res.first) : false;
 
-    return list.first;
+    return item;
   }
 
 

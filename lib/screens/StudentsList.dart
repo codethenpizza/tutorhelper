@@ -2,21 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:tutor_helper/widgets/StudentCard.dart';
 import 'StudentCreate.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
-
+import 'package:tutor_helper/widgets/StudentContactWidget.dart';
 
 class StudentsList extends StatefulWidget {
-
-  StudentsList({Key key}):super(key: key);
+  StudentsList({Key key}) : super(key: key);
 
   @override
   State createState() => StudentsListState();
 }
 
-class StudentsListState extends  State<StudentsList>{
-
+class StudentsListState extends State<StudentsList> {
   Future future = StudentModel().all();
 
-  updateState(){
+  updateState() {
     setState(() {
       future = StudentModel().all();
     });
@@ -32,13 +30,14 @@ class StudentsListState extends  State<StudentsList>{
             if(snapshot.data.isEmpty)
               return Center(child: Text('Вы еще не добавили ни одного ученика'),);
             else
-              return ListView.builder(
+              return GridView.builder(
+                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   StudentModel item = snapshot.data[index];
                   return Padding(
                     padding: EdgeInsets.only(top: 8),
-                    child: StudentCard(item),
+                    child: StudentContact(student: item),
                   );
                 },
               );
@@ -53,11 +52,11 @@ class StudentsListState extends  State<StudentsList>{
         onPressed: () {
 //          StudentModel().all();
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => StudentCreate())).then((val) => updateState());
+                  MaterialPageRoute(builder: (context) => StudentCreate()))
+              .then((val) => updateState());
         },
         child: Icon(Icons.person_add),
       ),
     );
   }
-
 }
