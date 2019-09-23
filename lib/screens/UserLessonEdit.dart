@@ -1,5 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor_helper/ColorPicker.dart';
 import 'package:tutor_helper/models/LessonModel.dart';
 import 'package:flutter_material_color_picker/flutter_material_color_picker.dart';
 import 'package:tutor_helper/widgets/Layout.dart';
@@ -99,10 +100,11 @@ class UserLessonEditState extends State<UserLessonEdit> {
                 children: <Widget>[
                   CardLayout(
                     children: <Widget>[
-                      MaterialColorPicker(
+                      ColorPicker(
                         onMainColorChange: (ColorSwatch color) {
                           _color = color.value;
                         },
+                        elevation: 10,
                         selectedColor: Color(_color),
                         allowShades: false,
 //                selectedColor: Colors.red,

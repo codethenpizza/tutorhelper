@@ -4,6 +4,8 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 import 'package:flushbar/flushbar.dart';
 import 'package:tutor_helper/widgets/Layout.dart';
 
+import '../ColorPicker.dart';
+
 class UserLessonCreate extends StatefulWidget {
   final Function updateList;
 
@@ -21,167 +23,160 @@ class UserLessonCreateState extends State<UserLessonCreate> {
   int _color = Colors.red.value;
   var _formKey = GlobalKey<FormState>();
 
-
   //TODO: move block to end of screen
   @override
   Widget build(BuildContext context) {
     return Layout(
-      title: "Создание урока",
-      child: Form(
-        key: _formKey,
-        child: ListView(
-                    children: <Widget>[
-                      //block
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Container(
-                            color: Theme.of(context).backgroundColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    //space inside block
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        MaterialColorPicker(
-                                          onMainColorChange: (ColorSwatch color) {
-                                            _color = color.value;
-                                          },
-                                          selectedColor: Color(_color),
-                                          allowShades: false,
-//                selectedColor: Colors.red,
-                                          colors: [
-                                            Colors.red,
-                                            Colors.deepOrange,
-                                            Colors.yellow,
-                                            Colors.lightGreen,
-                                            Colors.blueAccent,
-                                          ],
-                                          circleSize: 40,
-                                        ),
-                                      ],
-                                    ),
-                                    TextFormField(
-                                      validator: (String value) {
-                                        if (value.isEmpty) {
-                                          return "Название не может быть пустым";
-                                        } else {
-                                          name = value;
-                                        }
-                                      },
-                                      decoration: InputDecoration(
-                                        labelText: 'Название',
-                                      ),
+        title: "Создание урока",
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Container(
+                    color: Theme.of(context).backgroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: <Widget>[
+                          //space inside block
+                          ColorPicker(
+                            elevation: 10,
+                            shrinkWrap: true,
+                            onMainColorChange: (ColorSwatch color) {
+                              _color = color.value;
+                            },
+                            selectedColor: Color(_color),
+                            allowShades: false,
+                            colors: [
+                              Colors.red,
+                              Colors.deepOrange,
+                              Colors.yellow,
+                              Colors.lightGreen,
+                              Colors.blueAccent,
+                            ],
+                            circleSize: 40,
+                          ),
+                          TextFormField(
+                            validator: (String value) {
+                              if (value.isEmpty) {
+                                return "Название не может быть пустым";
+                              } else {
+                                name = value;
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Название',
+                            ),
 //                                  onChanged: (str) {
 //                                    name = str;
 //                                  },
-                                    ),
-                                    TextField(
-                                      decoration: InputDecoration(
-                                        labelText: 'Описание',
-                                      ),
-                                      minLines: 2,
-                                      maxLines: 5,
-                                      onChanged: (str) {
-                                        desc = str;
-                                      },
-                                    ),
-                                  ],
-                                ),
-
-                            ),
                           ),
-                        ),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Описание',
+                            ),
+                            minLines: 2,
+                            maxLines: 5,
+                            onChanged: (str) {
+                              desc = str;
+                            },
+                          ),
+                        ],
                       ),
-                      //last block w/ button
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10.0),
-                          child: Container(
-                            color: Theme.of(context).backgroundColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                children: <Widget>[
-                                  //space inside block
-                                  TextFormField(
-                                    validator: (String value) {
-                                      if (value.isEmpty && value != null) {
-                                        return "Укажите длительность";
-                                      }
+                    ),
+                  ),
+                ),
+              ),
+              //last block w/ button
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: Container(
+                    color: Theme.of(context).backgroundColor,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: <Widget>[
+                          //space inside block
+                          TextFormField(
+                            validator: (String value) {
+                              if (value.isEmpty && value != null) {
+                                return "Укажите длительность";
+                              }
 //                                      else if (value ){
 //                                        return "Укажите длительность";
 //                                      }
-                                      else {
-                                        duration = int.parse(value);
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Длительность в минутах',
-                                    ),
-                                    keyboardType: TextInputType.number,
+                              else {
+                                duration = int.parse(value);
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Длительность в минутах',
+                            ),
+                            keyboardType: TextInputType.number,
 //                                  onChanged: (str) {
 //                                    duration = int.parse(str);
 //                                  },
-                                  ),
-                                  TextFormField(
-                                    validator: (String value) {
-                                      if (value.isEmpty && value != null) {
-                                        return "Укажите цену урока";
-                                      }
+                          ),
+                          TextFormField(
+                            validator: (String value) {
+                              if (value.isEmpty && value != null) {
+                                return "Укажите цену урока";
+                              }
 //                                      else if (value ){
 //                                        return "Укажите длительность";
 //                                      }
-                                      else {
-                                        cost = int.parse(value);
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Цена',
-                                    ),
-                                    keyboardType: TextInputType.number,
+                              else {
+                                cost = int.parse(value);
+                              }
+                            },
+                            decoration: InputDecoration(
+                              labelText: 'Цена',
+                            ),
+                            keyboardType: TextInputType.number,
 //                                    onChanged: (str) {
 //                                      cost = int.parse(str);
 //                                    },
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10.0),
-                                    child: RaisedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          if (_formKey.currentState.validate()) {
-                                            createLesson();
-                                          }
-                                        });
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            'Создать',
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .backgroundColor,
-                                                fontSize: 17),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: RaisedButton(
+                              onPressed: () {
+                                setState(() {
+                                  if (_formKey.currentState.validate()) {
+                                    createLesson();
+                                  }
+                                });
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    'Создать',
+                                    style: TextStyle(
+                                        color:
+                                            Theme.of(context).backgroundColor,
+                                        fontSize: 17),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-        ),
-      )
-                );
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   createLesson() async {

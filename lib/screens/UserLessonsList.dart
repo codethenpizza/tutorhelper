@@ -21,16 +21,19 @@ class UserLessonsListState extends State<UserLessonsList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => UserLessonCreate(
-                          updateList: updateList,
-                        )))),
-        body:
+    return SafeArea(
+      bottom: false,
+
+      child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserLessonCreate(
+                            updateList: updateList,
+                          )))),
+          body:
 //        Padding(
 //          padding: const EdgeInsets.all(8.0),
 //          child: ListView(
@@ -87,27 +90,28 @@ class UserLessonsListState extends State<UserLessonsList> {
 //        )
 
 
-        FutureBuilder(
-            future: lessons,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data.length == 0) {
-                  return Center(
-                    child: Text('Вы не создали ни одного шаблона занятий'),
-                  );
+          FutureBuilder(
+              future: lessons,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  if (snapshot.data.length == 0) {
+                    return Center(
+                      child: Text('Вы не создали ни одного шаблона занятий'),
+                    );
+                  } else {
+                    List lessons = snapshot.data;
+                    return ListView(
+                        children: lessons
+                            .map((lesson) => UserLessonCard(lessonModel: lesson, updateList: updateList,))
+                            .toList());
+                  }
                 } else {
-                  List lessons = snapshot.data;
-                  return ListView(
-                      children: lessons
-                          .map((lesson) => UserLessonCard(lessonModel: lesson, updateList: updateList,))
-                          .toList());
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-              } else {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            })
-        );
+              })
+          ),
+    );
   }
 }
