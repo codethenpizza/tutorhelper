@@ -561,6 +561,7 @@ class ClassCreateState extends State<ClassCreate> {
         date: selectedDate.toIso8601String(),
         duration: int.parse(durationController.text),
         totalCost: int.parse(costController.text),
+        payed: 0,
         homework: homework);
     var id = await stLesson.save();
     stLesson.id = id;

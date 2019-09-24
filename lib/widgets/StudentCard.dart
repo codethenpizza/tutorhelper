@@ -52,6 +52,7 @@ class StudentCard extends StatelessWidget {
                                 (context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 return Row(
+
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     ClipRRect(

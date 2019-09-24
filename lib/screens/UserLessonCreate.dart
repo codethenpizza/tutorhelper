@@ -28,7 +28,8 @@ class UserLessonCreateState extends State<UserLessonCreate> {
   Widget build(BuildContext context) {
     return Layout(
         title: "Создание урока",
-        child: Form(
+        child:
+        Form(
           key: _formKey,
           child: ListView(
             scrollDirection: Axis.vertical,

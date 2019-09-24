@@ -18,7 +18,7 @@ import 'screens/ForTests.dart';
 
 void main() => runApp(MyApp());
 
-//TODO add skype
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
@@ -47,6 +47,8 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFFa483f9),
         primaryColor: Color(0xFF8ea0f1),
 //        primaryTextTheme: Color(0xFFFFFFFF),
+//        hintColor: Color(0xFFdedede),
+        hintColor: Color(0xFFcccccc),
 
 
 //        buttonColor: Color(0xFFa483f9),
@@ -109,7 +111,7 @@ class MyHomePage extends StatefulWidget {
         )),
     DrawerItem('Предметы', Icons.list, UserLessonsList() ),
     DrawerItem('Обратная связь', Icons.feedback, FeedbackScreen() ),
-    DrawerItem('test', Icons.feedback, ForTests() ),
+//    DrawerItem('test', Icons.feedback, ForTests() ),
 //    DrawerItem('Главная', Icons.home, Dashboard()),
 //    DrawerItem('Статистика', Icons.equalizer, ClassesList()),
 //    DrawerItem('Тест (Class)', Icons.accessible_forward, ClassP()),

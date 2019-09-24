@@ -34,69 +34,13 @@ class UserLessonsListState extends State<UserLessonsList> {
                             updateList: updateList,
                           )))),
           body:
-//        Padding(
-//          padding: const EdgeInsets.all(8.0),
-//          child: ListView(
-//            children: <Widget>[
-//              Card(
-//                child: Padding(
-//                    padding: const EdgeInsets.all(8.0),
-//                    child: Column(
-//                      crossAxisAlignment: CrossAxisAlignment.start,
-//                      children: <Widget>[
-//                        Text(
-//                          "Математика",
-//                          style: Theme.of(context).textTheme.title.copyWith(fontSize: 20),
-//                        ),
-//                        ClipRRect(
-//                          borderRadius: BorderRadius.circular(10),
-//                          child: Container(
-//                            height: 8,
-//                            width: 400,
-//                            // Lesson color here
-//                            color: Colors.amber,
-//                          ),
-//                        ),
-//                        Padding(
-//                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                            children: <Widget>[
-//                              Container(
-//                              child: Row(
-//                                children: <Widget>[
-//                                  Icon(Icons.access_alarm),
-//                                  Text('60 Минут', style: TextStyle(fontWeight: FontWeight.w400),),
-//                                ],
-//                              ),
-//                              ),
-//                              Container(
-//                                child: Row(
-//                                  children: <Widget>[
-//                                    Icon(Icons.attach_money),
-//                                    Text('1000', style: TextStyle(fontWeight: FontWeight.w400),),
-//                                  ],
-//                                ),
-//                              )
-//
-//                            ],
-//                          ),
-//                        )
-//                      ],
-//                    )),
-//              )
-//            ],
-//          ),
-//        )
-
-
           FutureBuilder(
               future: lessons,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data.length == 0) {
                     return Center(
-                      child: Text('Вы не создали ни одного шаблона занятий'),
+                      child: Text('Вы не создали ни одного шаблона занятий', style: TextStyle( color:  Theme.of(context).hintColor)),
                     );
                   } else {
                     List lessons = snapshot.data;

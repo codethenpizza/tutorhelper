@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tutor_helper/widgets/ClassWidget.dart';
+import 'package:tutor_helper/widgets/ArchiveClassWidget.dart';
 import 'package:tutor_helper/models/StLessonModel.dart';
 import 'dart:math' as math;
 import 'package:tutor_helper/widgets/StatCardWidget.dart';
+
+final GlobalKey<StatCardWidgetState> key = new GlobalKey<StatCardWidgetState>();
 
 class ClassesArchive extends StatefulWidget {
   @override
   State createState() => ClassesArchiveState();
 }
 
-//TODO: add "payed" button instead of contacts
 class ClassesArchiveState extends State<ClassesArchive> {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class ClassesArchiveState extends State<ClassesArchive> {
                   return Center(
                     child: Text(
                       'Занятия отсутствуют',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color:  Theme.of(context).hintColor),
                     ),
                   );
 
@@ -38,105 +39,7 @@ class ClassesArchiveState extends State<ClassesArchive> {
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
-                        StatCardWidget(),
-                        //card
-//                        Container(
-//                            child: Padding(
-//                          padding: const EdgeInsets.all(15.0),
-//                          child: Card(
-//                              child: Padding(
-//                                  padding: const EdgeInsets.all(15.0),
-//                                  child: Container(
-//                                      child: Center(
-//                                    child: Column(
-//                                      mainAxisAlignment:
-//                                          MainAxisAlignment.center,
-//                                      children: <Widget>[
-//                                        Text(
-//                                          '242',
-//                                          style: TextStyle(
-//                                              fontSize: 35,
-//                                              color: Theme.of(context)
-//                                                  .accentColor),
-//                                        ),
-//                                        Text('Урока проведено'),
-//                                      ],
-//                                    ),
-//                                  )))),
-//                        )),
-//                        //card
-//                        Container(
-//                            child: Padding(
-//                              padding: const EdgeInsets.all(15.0),
-//                              child: Card(
-//                                  child: Padding(
-//                                      padding: const EdgeInsets.all(15.0),
-//                                      child: Container(
-//                                          child: Center(
-//                                            child: Column(
-//                                              mainAxisAlignment:
-//                                              MainAxisAlignment.center,
-//                                              children: <Widget>[
-//                                                Text(
-//                                                  '12332',
-//                                                  style: TextStyle(
-//                                                      fontSize: 35,
-//                                                      color: Theme.of(context)
-//                                                          .accentColor),
-//                                                ),
-//                                                Text('Часов потрачено'),
-//                                              ],
-//                                            ),
-//                                          )))),
-//                            )),//card
-//                        Container(
-//                            child: Padding(
-//                              padding: const EdgeInsets.all(15.0),
-//                              child: Card(
-//                                  child: Padding(
-//                                      padding: const EdgeInsets.all(15.0),
-//                                      child: Container(
-//                                          child: Center(
-//                                            child: Column(
-//                                              mainAxisAlignment:
-//                                              MainAxisAlignment.center,
-//                                              children: <Widget>[
-//                                                Text(
-//                                                  '23123',
-//                                                  style: TextStyle(
-//                                                      fontSize: 35,
-//                                                      color: Theme.of(context)
-//                                                          .accentColor),
-//                                                ),
-//                                                Text('Денег заработано'),
-//                                              ],
-//                                            ),
-//                                          )))),
-//                            )),//card
-//                        Container(
-//                            child: Padding(
-//                              padding: const EdgeInsets.all(15.0),
-//                              child: Card(
-//                                  child: Padding(
-//                                      padding: const EdgeInsets.all(15.0),
-//                                      child: Container(
-//                                          child: Center(
-//                                            child: Column(
-//                                              mainAxisAlignment:
-//                                              MainAxisAlignment.center,
-//                                              children: <Widget>[
-//                                                Text(
-//                                                  '12',
-//                                                  style: TextStyle(
-//                                                      fontSize: 35,
-//                                                      color: Theme.of(context)
-//                                                          .accentColor),
-//                                                ),
-//                                                Text('Учеников'),
-//                                              ],
-//                                            ),
-//                                          )))),
-//                            )),
+                        StatCardWidget(key: key,),
                       ],
                     ),
                   )
@@ -184,7 +87,7 @@ class ClassesArchiveState extends State<ClassesArchive> {
                       ),
                     ));
                   }
-                  _sliverWidgets.add(ClassWidget(list[index]));
+                  _sliverWidgets.add(ArchiveClassWidget(list[index]));
                 }
 
                 _slivers.add(SliverList(
@@ -193,19 +96,11 @@ class ClassesArchiveState extends State<ClassesArchive> {
                 return CustomScrollView(slivers: _slivers);
               } else {
                 return Center(
-                  child: Text('Загрузка'),
+                  child: Text('Загрузка', style: TextStyle( color:  Theme.of(context).hintColor)),
                 );
               }
             }),
       ),
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: () {
-////            print(await StLessonModel().getAllLessons());
-//          Navigator.push(
-//              context, MaterialPageRoute(builder: (context) => ClassCreate()));
-//        },
-//        child: Icon(Icons.add),
-//      ),
     );
   }
 

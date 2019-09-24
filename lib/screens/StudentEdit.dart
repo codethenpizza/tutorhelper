@@ -19,6 +19,8 @@ class StudentEditState extends State<StudentEdit> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController skypeController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   var _formKey = GlobalKey<FormState>();
 
 
@@ -29,7 +31,8 @@ class StudentEditState extends State<StudentEdit> {
     nameController.text = widget.student.name;
     phoneController.text = widget.student.phone;
     emailController.text = widget.student.email;
-
+    skypeController.text = widget.student.skype;
+    addressController.text = widget.student.address;
   }
 
   void removeStudent(BuildContext context) {
@@ -62,7 +65,7 @@ class StudentEditState extends State<StudentEdit> {
         ));
   }
 
- //TODO add skype
+
   @override
   Widget build(BuildContext context) => Layout(
     title: "Редактирование ученика",
@@ -105,9 +108,15 @@ class StudentEditState extends State<StudentEdit> {
                   ),
                 ),
                 TextField(
-//                controller: emailController,
+                  controller: skypeController,
                   decoration: InputDecoration(
                     labelText: 'Skype',
+                  ),
+                ),
+                TextField(
+                  controller: addressController,
+                  decoration: InputDecoration(
+                    labelText: 'Адрес',
                   ),
                 ),
                 Padding(
@@ -144,7 +153,7 @@ class StudentEditState extends State<StudentEdit> {
 
   editStudent(BuildContext context) async {
     StudentModel student =
-    new StudentModel(id: widget.student.id, name: nameController.text, phone: phoneController.text, email: emailController.text);
+    new StudentModel(id: widget.student.id, name: nameController.text, phone: phoneController.text, email: emailController.text, skype: skypeController.text, address: addressController.text );
 
     await student.save();
 

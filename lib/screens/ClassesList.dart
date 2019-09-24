@@ -27,7 +27,7 @@ class ClassesListState extends State<ClassesList> {
             child: Column(
               children: <Widget>[
                 Container(
-                  height: 180,
+//                  height: 180,
                   child: FutureBuilder<List<StLessonModel>>(
 
                       future: StLessonModel().allComing(date:getDate()),
@@ -35,12 +35,7 @@ class ClassesListState extends State<ClassesList> {
 //                        print(snapshot);
                         if (snapshot.hasData) {
                           if (snapshot.data.length == 0)
-                            return Center(
-                              child: Text(
-                                '',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                            );
+                            return Container();
 
                           List list = snapshot.data;
 
@@ -59,7 +54,7 @@ class ClassesListState extends State<ClassesList> {
                           );
                         } else {
                           return Center(
-                            child: Text('Загрузка'),
+                            child: Text('Загрузка', style: TextStyle( color:  Theme.of(context).hintColor)),
                           );
                         }
                       }),
@@ -76,7 +71,7 @@ class ClassesListState extends State<ClassesList> {
                               return Center(
                                 child: Text(
                                   'Занятия отсутствуют',
-                                  style: TextStyle(fontSize: 20),
+                                  style: TextStyle(fontSize: 20, color: Theme.of(context).hintColor ),
                                 ),
                               );
 
@@ -95,7 +90,7 @@ class ClassesListState extends State<ClassesList> {
                             );
                           } else {
                             return Center(
-                              child: Text('Загрузка'),
+                              child: Text('Загрузка', style: TextStyle( color:  Theme.of(context).hintColor)),
                             );
                           }
                         }),

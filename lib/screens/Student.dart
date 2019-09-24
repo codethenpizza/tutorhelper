@@ -9,7 +9,9 @@ import 'package:tutor_helper/screens/StudentEdit.dart';
 import 'package:tutor_helper/widgets/ClassWidget.dart';
 import 'package:tutor_helper/widgets/StudentSingleClassWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:tutor_helper/widgets/Layout.dart';
 import 'package:tutor_helper/widgets/CardLayout.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Student extends StatefulWidget {
   final StudentModel student;
@@ -39,7 +41,7 @@ class StudentState extends State<Student> {
   Widget build(BuildContext context) {
     return Container(
         child: new Stack(children: <Widget>[
-      new Container( //TODO Layout
+      new Container(
         child: new Image.asset('assets/appbarfullbg.jpg', fit: BoxFit.cover, height: MediaQuery.of(context).size.height, width: MediaQuery.of(context).size.width,),
         color: Colors.lightGreen,
       ),
@@ -89,9 +91,11 @@ class StudentState extends State<Student> {
                           ),
                         ),
                       ),
+                      student.address != null && student.phone != null && student.skype != null && student.email != null ?
                       CardLayout(
                           children: <Widget>[
                               //space inside block
+                            student.phone != null ?
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -101,17 +105,19 @@ class StudentState extends State<Student> {
                                         launch("tel:${student.phone}")),
                                 Text(student.phone.toString()),
                               ],
-                            ),
+                            ) : Container(),
+                            student.skype != null ?
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 IconButton(
-                                    icon: Icon(Icons.sms),
+                                    icon: Icon(FontAwesomeIcons.skype),
                                     onPressed: () =>
-                                        launch("sms:${student.phone}")),
-                                Text(student.phone.toString()),
+                                        launch("skype:${student.skype}")),
+                                Text(student.skype.toString()),
                               ],
-                            ),
+                            ) : Container(),
+                            student.email != null ?
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
@@ -121,9 +127,21 @@ class StudentState extends State<Student> {
                                         launch("mailto:${student.email}")),
                                 Text(student.email.toString()),
                               ],
-                            ),
+                            ) : Container(),
+                            student.address != null ?
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                IconButton(
+                                    icon: Icon(Icons.place),
+                                    onPressed: () =>
+                                    //TODO:  open maps
+                                        launch("mailto:${student.address}")),
+                                Text(student.address.toString()),
+                              ],
+                            ) : Container(),
                           ],
-                      ),
+                      ): Container(),
 
                        FutureBuilder(
                           future: student.nextLesson(),

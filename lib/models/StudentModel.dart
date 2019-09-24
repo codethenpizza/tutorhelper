@@ -19,6 +19,8 @@ class StudentModel extends Model{
   String phone;
   String email;
   int show;
+  String skype;
+  String address;
 
   StudentModel({
     this.id,
@@ -26,6 +28,8 @@ class StudentModel extends Model{
     this.phone,
     this.email,
     this.show,
+    this.skype,
+    this.address,
   });
 
   fromMap(Map<String, dynamic> json) => new StudentModel(
@@ -33,6 +37,8 @@ class StudentModel extends Model{
     name: json["name"],
     phone: json["phone"],
     email: json["email"],
+    skype: json["skype"],
+    address: json["address"],
   );
 
   Map<String, dynamic> toMap() => {
@@ -40,7 +46,10 @@ class StudentModel extends Model{
     "name": name,
     "phone": phone,
     "email": email,
+    "skype": skype,
     "show": show,
+    "address": address,
+
   };
 
   @override

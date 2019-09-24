@@ -23,6 +23,7 @@ class StLessonModel extends Model {
   int duration;
   int totalCost;
   String homework;
+  int payed;
 
   StLessonModel({
     this.id,
@@ -31,6 +32,7 @@ class StLessonModel extends Model {
     this.date,
     this.duration,
     this.totalCost,
+    this.payed,
     this.homework
   });
 
@@ -41,6 +43,7 @@ class StLessonModel extends Model {
         date: json["date"],
         duration: json["duration"],
         totalCost: json["total_cost"],
+        payed: json["payed"],
         homework: json["homework"],
   );
 
@@ -51,6 +54,7 @@ class StLessonModel extends Model {
         "date": date,
         "duration": duration,
         "total_cost": totalCost,
+        "payed": payed,
         "homework": homework,
       };
 
@@ -77,7 +81,7 @@ class StLessonModel extends Model {
 
     var res = await db.query(
       this.tableName,
-      orderBy: "date",
+      orderBy: "date DESC",
       where: "date < ?",
       whereArgs: [DateTime.now().toIso8601String()],
     );
@@ -98,6 +102,13 @@ class StLessonModel extends Model {
     List<dynamic> list =
     res.isNotEmpty ? res.map((c) => this.fromMap(c)).toList() : [];
     return list;
+  }
+
+  Future payedChange() async {
+    final db = await DBProvider.db.database;
+    this.payed = this.payed == 0 ? 1 : 0;
+    db.update(this.tableName, {'payed': this.payed}, where: 'id = ?', whereArgs: [this.id]);
+
   }
 
 //  String timeFromTo(){

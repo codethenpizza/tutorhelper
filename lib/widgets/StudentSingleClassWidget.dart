@@ -26,100 +26,101 @@ class StudentSingleClassWidget extends StatelessWidget {
       onTap: () => Navigator.push(
           context, MaterialPageRoute(builder: (context) => ClassEdit(sLesson))),
       child: Container(
-        child: FutureBuilder(
-          future: LessonModel().find(sLesson.lessonId),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData) {
-              return CardLayout(
-                children: <Widget>[
-                  //space inside block
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Flexible(
-                          child: Text(
-                            snapshot.data.name,
-                            overflow: TextOverflow.ellipsis,
+        child: Container(
+          child: FutureBuilder(
+            future: LessonModel().find(sLesson.lessonId),
+            builder: (context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return CardLayout(
+                  children: <Widget>[
+                    //space inside block
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Flexible(
+                            child: Text(
+                              snapshot.data.name,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(
-                              FontAwesomeIcons.rubleSign,
-                              size: 15,
-                            ),
-                            Text(
-                              snapshot.data.cost.toString(),
-                              style: Theme.of(context).textTheme.body1,
-                            ),
-                          ],
-                        ),
-                      ],
+                          Row(
+                            children: <Widget>[
+                              Icon(
+                                FontAwesomeIcons.rubleSign,
+                                size: 15,
+                              ),
+                              Text(
+                                snapshot.data.cost.toString(),
+                                style: Theme.of(context).textTheme.body1,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Container(
-                      height: 10,
-                      width: 500,
-                      color: Color(snapshot.data.color),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        height: 10,
+                        width: 500,
+                        color: Color(snapshot.data.color),
 //lesson color
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14.0, bottom: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          formattedDate,
-                          style: TextStyle(fontSize: 25),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Text(
-                              sLesson.timeFrom().toString(),
-                              style: TextStyle(fontSize: 25),
-                            ),
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              color: Theme.of(context).accentColor,
-                              size: 25,
-                            ),
-                            Text(
-                              sLesson.timeTo().toString(),
-                              style: TextStyle(fontSize: 25),
-                            )
-                          ],
-                        )
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 14.0, bottom: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            formattedDate,
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Text(
+                                sLesson.timeFrom().toString(),
+                                style: TextStyle(fontSize: 25),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                color: Theme.of(context).accentColor,
+                                size: 25,
+                              ),
+                              Text(
+                                sLesson.timeTo().toString(),
+                                style: TextStyle(fontSize: 25),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Домашнее задание"),
-                        //TODO: add homework display or text that student don't have homework
-                        Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae tempus lorem. Curabitur ipsum quam, interdum eget quam mollis, fermentum volutpat augueLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae tempus lorem. Curabitur ipsum quam, interdum eget quam mollis, fermentum volutpat augueLorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vitae tempus lorem. Curabitur ipsum quam, interdum eget quam mollis, fermentum volutpat augue.",
-                          style: TextStyle(fontWeight: FontWeight.normal),
-                        )
-                      ],
+                    SizedBox(
+                      height: 10,
                     ),
-                  )
-                ],
-              );
-            } else {
-              return Text('Загрузка');
-            }
-          },
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+//                      mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Домашнее задание"),
+                          Text(sLesson.homework != null  ? sLesson.homework: "Домашнее задание отстуствует" ,
+                            style: TextStyle(fontWeight: FontWeight.normal,),softWrap: true, maxLines: 8,),
+                        ],
+                      ),
+                    )
+                  ],
+                );
+              } else {
+                return Text('Загрузка');
+              }
+            },
+          ),
         ),
       ),
     );

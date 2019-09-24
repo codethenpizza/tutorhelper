@@ -20,7 +20,7 @@ class DBProvider {
 
   initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'Tutor_helper_1.db');
+    String path = join(documentsDirectory.path, 'Tutor_helper_3.db');
     return await openDatabase(path, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE Students ("
@@ -28,6 +28,8 @@ class DBProvider {
           "name TEXT, "
           "phone TEXT, "
           "email TEXT, "
+          "skype TEXT, "
+          "address TEXT, "
           "show INTEGER"
           ")");
 
@@ -36,7 +38,8 @@ class DBProvider {
           "student_id INTEGER, "
           "name TEXT, "
           "phone TEXT, "
-          "email TEXT"
+          "email TEXT, "
+          "skype TEXT"
           ")");
 
       await db.execute("CREATE TABLE Lessons ("
@@ -56,6 +59,7 @@ class DBProvider {
           "date TEXT, "
           "duration INTEGER, "
           "total_cost INTEGER, "
+          "payed INTEGER, "
           "homework TEXT"
           ")");
     }, onUpgrade: (Database db, int oldVersion, int newVersion) async {

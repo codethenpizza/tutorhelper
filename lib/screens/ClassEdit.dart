@@ -18,7 +18,7 @@ class ClassEdit extends StatefulWidget {
   State createState() => ClassEditState();
 }
 
-//TODO remake screen for new design
+
 class ClassEditState extends State<ClassEdit> {
   int studentId;
   int lessonId;
@@ -226,6 +226,7 @@ class ClassEditState extends State<ClassEdit> {
         date: selectedDate.toIso8601String(),
         duration: int.parse(durationController.text),
         totalCost: int.parse(costController.text),
+        payed: widget.sLesson.payed,
         homework: homeworkController.text
     );
     var id = await stLesson.save();

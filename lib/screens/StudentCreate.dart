@@ -14,6 +14,8 @@ class StudentCreateState extends State<StudentCreate> {
   String name;
   String phone;
   String email;
+  String skype;
+  String address;
   var _formKey = GlobalKey<FormState>();
 
   @override
@@ -98,22 +100,21 @@ class StudentCreateState extends State<StudentCreate> {
                                     ),
                                     TextField(
                                       decoration: InputDecoration(
-                                        labelText: 'Адрес',
+                                        labelText: 'Skype',
                                       ),
-                                      //TODO: add address to database
-//                                onChanged: (str) {
-//                                  address = str;
-//                                },
+                                      onChanged: (str) {
+                                        skype = str;
+                                      },
                                     ),
                                     TextField(
                                       decoration: InputDecoration(
-                                        labelText: 'Skype',
+                                        labelText: 'Адрес',
                                       ),
-                                      //TODO: add skype to database
-//                                onChanged: (str) {
-//                                  address = str;
-//                                },
+                                      onChanged: (str) {
+                                        address = str;
+                                      },
                                     ),
+
                                     Padding(
                                       padding: const EdgeInsets.only(top: 10.0),
                                       child: RaisedButton(
@@ -160,7 +161,7 @@ class StudentCreateState extends State<StudentCreate> {
 
   createStudent(BuildContext context) async {
     StudentModel student =
-        new StudentModel(name: name, phone: phone, email: email);
+        new StudentModel(name: name, phone: phone, email: email, skype: skype, address: address);
     await student.save();
     Navigator.pop(context);
     Flushbar(
