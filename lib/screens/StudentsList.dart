@@ -28,7 +28,10 @@ class StudentsListState extends State<StudentsList> {
         builder: (BuildContext context, snapshot) {
           if(snapshot.hasData){
             if(snapshot.data.isEmpty)
-              return Center(child: Text('Вы еще не добавили ни одного ученика', style: TextStyle( color:  Theme.of(context).hintColor)),);
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(child: Text('Вы еще не добавили ни одного ученика', style: TextStyle( color:  Theme.of(context).hintColor), textAlign: TextAlign.center,),),
+              );
             else
               return GridView.builder(
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
