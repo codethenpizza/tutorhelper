@@ -210,13 +210,14 @@ class StatCardWidgetState extends State<StatCardWidget> {
                             future: allHours,
                             builder: (context, snap) {
                               if (snap.hasData) {
+                                var time =  snap.data <= 60 ? snap.data : snap.data/60;
                                 return Column(
                                    children: <Widget>[
                                      SizedBox(
                                        height: 15,
                                      ),
                                      Text(
-                                       snap.data.toString(),
+                                       time.toString().substring(0, 4),
                                        style: TextStyle(
                                            fontSize: 35,
                                            color: Theme.of(context).accentColor),

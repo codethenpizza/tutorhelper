@@ -52,6 +52,26 @@ class StudentModel extends Model{
 
   };
 
+  isPhone() {
+    return this.phone != null && this.phone.length != 0;
+  }
+
+  isEmail() {
+    return this.email != null && this.email.length != 0;
+  }
+
+  isSkype() {
+    return this.skype != null && this.skype.length != 0;
+  }
+
+  isAddress() {
+    return this.address != null && this.address.length != 0;
+  }
+
+  isData() {
+    return isPhone() || isEmail() || isSkype() || isAddress();
+  }
+
   @override
   all() async {
     final db = await DBProvider.db.database;

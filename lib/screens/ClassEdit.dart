@@ -199,7 +199,7 @@ class ClassEditState extends State<ClassEdit> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Создать',
+                          'Обновить',
                           style: TextStyle(
                               color:
                               Theme.of(context).backgroundColor,

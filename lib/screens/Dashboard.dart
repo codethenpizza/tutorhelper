@@ -3,7 +3,7 @@ import 'package:tutor_helper/models/StLessonModel.dart';
 import 'package:tutor_helper/widgets/DashboardWidget.dart';
 import 'package:tutor_helper/screens/ClassCreate.dart';
 import 'package:tutor_helper/widgets/SortingWidget.dart';
-import 'package:tutor_helper/widgets/WeekSchedule.dart';
+
 
 class Dashboard extends StatefulWidget {
   @override
@@ -54,7 +54,6 @@ class DashboardState extends State<Dashboard> {
             },
           ),
           SortingWidget(),
-          WeekSchedule(),
         ],
       ),
     );

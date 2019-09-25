@@ -39,6 +39,7 @@ class StudentState extends State<Student> {
 
   @override
   Widget build(BuildContext context) {
+    print(student.isPhone());
     return Container(
         child: new Stack(children: <Widget>[
       new Container(
@@ -91,55 +92,86 @@ class StudentState extends State<Student> {
                           ),
                         ),
                       ),
-                      student.address != null && student.phone != null && student.skype != null && student.email != null ?
+                      student.isData() ?
                       CardLayout(
                           children: <Widget>[
                               //space inside block
-                            student.phone != null ?
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.phone),
-                                    onPressed: () =>
-                                        launch("tel:${student.phone}")),
-                                Text(student.phone.toString()),
-                              ],
-                            ) : Container(),
-                            student.skype != null ?
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(FontAwesomeIcons.skype),
-                                    onPressed: () =>
-                                        launch("skype:${student.skype}")),
-                                Text(student.skype.toString()),
-                              ],
-                            ) : Container(),
-                            student.email != null ?
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.email),
-                                    onPressed: () =>
-                                        launch("mailto:${student.email}")),
-                                Text(student.email.toString()),
-                              ],
-                            ) : Container(),
-                            student.address != null ?
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[
-                                IconButton(
-                                    icon: Icon(Icons.place),
-                                    onPressed: () =>
-                                    //TODO:  open maps
-                                        launch("mailto:${student.address}")),
-                                Text(student.address.toString()),
-                              ],
-                            ) : Container(),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: student.isPhone() ?
+                              InkWell(
+                                onTap: () => launch("tel:${student.phone}"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(Icons.phone),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                        child: Text(student.phone.toString(), maxLines: 8, style: TextStyle(fontWeight: FontWeight.w500),)),
+                                  ],
+                                ),
+                              ): Container(),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: student.isSkype() ?
+                              InkWell(
+                                onTap: () => launch("skype:${student.skype}"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(FontAwesomeIcons.skype),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                        child: Text(student.skype.toString(), maxLines: 8, style: TextStyle(fontWeight: FontWeight.w500),)),
+
+                                  ],
+                                ),
+                              ): Container(),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: student.isEmail() ?
+                              InkWell(
+                                onTap: () => launch("mailto:${student.email}"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(Icons.email),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                        child: Text(student.email.toString(), maxLines: 8, style: TextStyle(fontWeight: FontWeight.w500),)),
+
+                                  ],
+                                ),
+                              ): Container(),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: student.isAddress() ?
+                              InkWell(
+                                onTap: () => launch("https://www.google.com/maps/search/+${student.address}"),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    Icon(Icons.place),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                        child: Text(student.address.toString(), maxLines: 8, style: TextStyle(fontWeight: FontWeight.w500),)),
+
+                                  ],
+                                ),
+                              ): Container(),
+                            ),
                           ],
                       ): Container(),
 

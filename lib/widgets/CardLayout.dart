@@ -39,10 +39,12 @@ class CardLayout extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10.0),
         child: Container(
+//          width: MediaQuery.of(context).size.width,
           color: Theme.of(context).backgroundColor,
           child: Padding(
               padding: const EdgeInsets.all(15.0),
               child:  Column(
+
                 children: children
               )
           ),

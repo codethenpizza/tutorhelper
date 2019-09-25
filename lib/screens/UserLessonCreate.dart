@@ -23,7 +23,7 @@ class UserLessonCreateState extends State<UserLessonCreate> {
   int _color = Colors.red.value;
   var _formKey = GlobalKey<FormState>();
 
-  //TODO: move block to end of screen
+
   @override
   Widget build(BuildContext context) {
     return Layout(
