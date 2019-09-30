@@ -207,6 +207,9 @@ class UserLessonEditState extends State<UserLessonEdit> {
   Widget build(BuildContext context) {
     return Layout(
         title: "Создание урока",
+      actions: <Widget>[
+              IconButton(icon: Icon(Icons.delete), onPressed: removeUserLesson)
+            ],
         child:
         Form(
           key: _formKey,
