@@ -34,10 +34,18 @@ class StatCardWidgetState extends State<StatCardWidget> {
   Future allUnPayed;
   getAllUnPayed() async {
     final db = await DBProvider.db.database;
-    var resp = await db.rawQuery('SELECT Count(payed) FROM S_Lessons WHERE payed = 0');
-//    var result = resp[0]['Count(payed)'] == null ? 0 : resp[0]['SUM(payed)'];
-//    return result;
-    return resp[0]['Count(payed)'];
+//    String today =  DateTime.now().toIso8601String();
+    var resp = await db.rawQuery("SELECT Count(payed) FROM S_Lessons WHERE date < ? AND payed = 0", [DateTime.now().toIso8601String()]);
+//    var res = await db.query(
+//      'S_Lesson',
+//      orderBy: "date DESC",
+//      where: "date < ? AND payed = 0",
+//      whereArgs: [DateTime.now().toIso8601String()],
+//    );
+    var result = resp[0]['Count(payed)'] == null ? 0 : resp[0]['Count(payed)'];
+    print(resp);
+    return result;
+//    return resp[0]['Count(payed)'];
   }
 
   Future allStudents;

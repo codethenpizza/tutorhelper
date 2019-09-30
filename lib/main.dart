@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_cupertino_localizations/flutter_cupertino_localizations.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
             height: 35,
 
         ),
+        platform: TargetPlatform.android,
         floatingActionButtonTheme:
             FloatingActionButtonThemeData(backgroundColor: Color(0xFFa483f9),),
         textTheme: ThemeData.light().textTheme.copyWith(
