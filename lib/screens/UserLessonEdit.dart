@@ -282,7 +282,7 @@ class UserLessonEditState extends State<UserLessonEdit> {
                         children: <Widget>[
                           //space inside block
                           TextFormField(
-                        controller: costController,
+                        controller: durationController,
                         validator: (String value) {
                           if (value.isEmpty && value != null) {
                             return "Укажите цену урока";
