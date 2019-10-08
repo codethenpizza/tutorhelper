@@ -151,12 +151,12 @@ class ClassEditState extends State<ClassEdit> {
                           DatePicker.showDateTimePicker(context,
                               showTitleActions: true,
                               onConfirm: (date) {
-                                print('confirm $date');
+//                                print('confirm $date');
                                 setState(() {
                                   selectedDate = date;
                                 });
                               },
-                              currentTime: DateTime.now(),
+                              currentTime: selectedDate,
                               locale: LocaleType.ru);
                         },
                         child: Text(

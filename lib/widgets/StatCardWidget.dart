@@ -218,14 +218,18 @@ class StatCardWidgetState extends State<StatCardWidget> {
                             future: allHours,
                             builder: (context, snap) {
                               if (snap.hasData) {
-                                var time =  snap.data <= 60 ? snap.data : snap.data/60;
+                                print(snap.data);
+                                var is_minutes = snap.data < 60;
+                                var time = is_minutes ? snap.data : (snap.data/60).toStringAsFixed(0);
+//                                var time =  snap.data;
                                 return Column(
                                    children: <Widget>[
                                      SizedBox(
                                        height: 15,
                                      ),
                                      Text(
-                                       time.toString().substring(0, 4),
+                                       time.toString(),
+//                                       time.toString(),
                                        style: TextStyle(
                                            fontSize: 35,
                                            color: Theme.of(context).accentColor),
@@ -233,7 +237,7 @@ class StatCardWidgetState extends State<StatCardWidget> {
                                      SizedBox(
                                        height: 1,
                                      ),
-                                     snap.data <= 60 ?
+                                     is_minutes ?
                                      Text('Всего минут \n потрачено', textAlign: TextAlign.center,) : Text('Всего часов \n потрачено', textAlign: TextAlign.center,)
                                    ],
                                 );
