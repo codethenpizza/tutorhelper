@@ -30,9 +30,8 @@ class UserLessonsListState extends State<UserLessonsList> {
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => UserLessonCreate(
-                            updateList: updateList,
-                          )))),
+                      builder: (context) => UserLessonCreate())).then((val) => updateList())
+          ),
           body:
           Padding(
             padding: const EdgeInsets.all(8.0),

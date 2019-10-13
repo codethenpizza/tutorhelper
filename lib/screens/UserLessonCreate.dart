@@ -7,9 +7,7 @@ import 'package:tutor_helper/widgets/Layout.dart';
 import '../ColorPicker.dart';
 
 class UserLessonCreate extends StatefulWidget {
-  final Function updateList;
-
-  UserLessonCreate({this.updateList}) : super();
+  UserLessonCreate() : super();
 
   @override
   State createState() => UserLessonCreateState();
@@ -191,6 +189,5 @@ class UserLessonCreateState extends State<UserLessonCreate> {
       message: 'Шаблон создан',
       duration: Duration(seconds: 3),
     )..show(context);
-    widget.updateList();
   }
 }
