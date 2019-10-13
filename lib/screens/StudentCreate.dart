@@ -1,6 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_helper/models/StudentModel.dart';
+import 'package:tutor_helper/widgets/Layout.dart';
 
 //font awesome
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -19,27 +20,9 @@ class StudentCreateState extends State<StudentCreate> {
   var _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: new Stack(
-        children: <Widget>[
-          new Container(
-            child: new Image.asset(
-              'assets/appbarfullbg.jpg',
-              fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-            ),
-            color: Colors.lightGreen,
-          ),
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: AppBar(
-              title: Text('Создание ученика'),
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-            ),
-            body: Form(
+  Widget build(BuildContext context) => Layout(
+    title: "Редактирование ученика",
+    child: Form(
               key: _formKey,
               child: ListView(children: <Widget>[
                 Padding(
@@ -153,11 +136,7 @@ class StudentCreateState extends State<StudentCreate> {
                 ),
               ]),
             ),
-          )
-        ],
-      ),
     );
-  }
 
   createStudent(BuildContext context) async {
     StudentModel student =
